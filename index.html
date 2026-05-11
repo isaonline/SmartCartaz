@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
+    <script src="/script.js" defer></script>
+</head>
+<body>
+    <main id="criar-cartaz">
+        <aside>
+            <h2>Crie seu cartaz</h2>
+            <p>Preencha os dados abaixo para criar o cartaz de desaparecimento.</p>
+            <button id="button-pessoa"><img src="" alt=""><p>Pessoa</p></button>
+            <button id="button-pet"><img src="" alt=""><p>Pet</p></button>
+            <form id="dados-form">
+                <fieldset id="form-dados-desaparecido">
+                    <label for="form-nome">Nome da pessoa</label>
+                    <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" >
+                    <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" >
+                </fieldset>
+                <fieldset id="form-detalhes">
+                    <label for="form-desc-desaparecimento">Descrição do desaparecimento</label>
+                    <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." ></textarea>
+                    <label for="form-local">Local do desaparecimento</label>
+                    <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" >
+                    <label for="form-data">Data do desaparecimento</label>
+                    <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" >
+                </fieldset>
+                <fieldset id="form-contato">
+                    <label for="form-telefone">Telefone/ WhatsApp</label>
+                    <input type="tel" name="form-telefone" id="form-telefone" placeholder="Ex: (11) 91234-5678" >
+                    <label for="form-recompensa">Recompensa (opcional)</label>
+                    <input type="number" name="form-recompensa" id="form-recompensa" placeholder="Ex: R$1.000,00" >
+                </fieldset>
+                <fieldset id="form-foto">
+                    <input type="file" name="form-enviar-foto" id="form-enviar-foto">
+                </fieldset>
+                <button type="submit"><img src="" alt=""><p>Baixar PNG</p></button>
+                <button type="submit"><img src="" alt=""><p>Baixar PDF</p></button>
+            </form>
+        </aside>
+        <div>
+
+        </div>
+    </main>
+    <article id="como-usar">
+
+    </article>
+    <section id="sobre-nos">
+
+    </section>
+</body>
+</html>
