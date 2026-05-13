@@ -1,9 +1,59 @@
+/* Universais */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: "Noto Sans", sans-serif;
 }
 
 .hidden {
     display: none;
 }
+
+:root {
+    --background: #F2F2F2;
+    --border: #E8E8E8;
+    --brand: #007F5B;
+    --content: #171A17;
+    --danger: #E91117;
+    --hover: #EFEFEF;
+    --input: #A2A2A2;
+    --interaction: #EDF6F4;
+    --placeholder: #5B5B5B;
+    --subtext: #5E5E5E;
+    --white: #FFFFFF;
+}
+
+/* Estilos de texto */
+
+.title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    letter-spacing: 0%;
+}
+
+.label {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: 0%;
+}
+
+.text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: 0%;
+}
+
+.caption {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: 0%;
+}
+
