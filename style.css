@@ -57,3 +57,89 @@
     letter-spacing: 0%;
 }
 
+/* Geral */
+
+html, body {
+    height: 100vh;
+}
+
+main {
+    height: 100%;
+    max-width: 1440px;
+}
+
+/* Criar Cartaz */
+
+nav {
+    display: flex;
+    gap: 50px;
+    padding: 0 24px;
+}
+
+menu {
+    display: flex;
+    gap: 0;
+}
+
+menu > button {
+    background-color: transparent;
+    border: none;
+    width: 140px;
+    height: 56px;
+    padding: 20px;
+}
+
+.menu-button-active {
+    border-bottom: 3px solid var(--brand);
+}
+
+#criar-cartaz {
+    display: flex;
+}
+
+aside {
+    width: 487px;
+    padding: 24px;
+    top: 57px;
+}
+
+aside > h2 {
+    color: var(--brand);
+}
+
+aside > p {
+    color: var(--subtext);
+}
+
+#buttons-trocar-tipo {
+    display: flex;
+    background-color: var(--background);
+    width: 439px;
+    height: 48px;
+    border-radius: 6px;
+    padding: 4px;
+    margin: 20px 0;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+#buttons-trocar-tipo > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 210.5px;
+    height: 40px;
+    border: none;
+    border-radius: 4px;
+    padding: 8px 10px;
+}
+
+.button-tipo-active {
+    background-color: var(--brand);
+    color: var(--white);
+}
+
+/* Form */
+
