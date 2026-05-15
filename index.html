@@ -21,43 +21,51 @@
         </nav>
         <section id="criar-cartaz">
             <aside>
-                <h2 class="title">Crie seu cartaz</h2>
-                <p class="text">Preencha os dados abaixo para criar o cartaz de desaparecimento.</p>
-                <div id="buttons-trocar-tipo">
-                    <button id="button-pessoa" class="button-tipo-active"><img src="src/img/person-white-fill.svg" alt="Ícone de pessoa"><p class="label">Pessoa</p></button>
-                    <button id="button-pet"><img src="src/img/paw-black-fill.svg" alt="Ícone de patinha"><p class="label">Pet</p></button>
+                <div id="conteudo-form">
+                    <h2 class="title">Crie seu cartaz</h2>
+                    <p class="text">Preencha os dados abaixo para criar o cartaz de desaparecimento.</p>
+                    <div id="buttons-trocar-tipo">
+                        <button id="button-pessoa" class="button-tipo-active"><img src="src/img/person-white-fill.svg" alt="Ícone de pessoa"><p class="label">Pessoa</p></button>
+                        <button id="button-pet"><img src="src/img/paw-black-fill.svg" alt="Ícone de patinha"><p class="label">Pet</p></button>
+                    </div>
+                    <form id="dados-form">
+                        <fieldset id="form-dados-desaparecido">
+                            <div class="titulo-fieldset"><img src="src/img/magnifying-glass.svg" alt="Ícone de lupa"><h3 class="label">1. Dados do desaparecido</h3></div>
+                            <label class="caption" for="form-nome">Nome da pessoa</label>
+                            <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" >
+                            <label class="caption" for="form-idade">Idade</label>
+                            <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" >
+                        </fieldset>
+                        <fieldset id="form-detalhes">
+                            <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
+                            <label class="caption" for="form-desc-desaparecimento">Descrição do desaparecimento</label>
+                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." ></textarea>
+                            <label class="caption" for="form-local">Local do desaparecimento</label>
+                            <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" >
+                            <label class="caption" for="form-data">Data do desaparecimento</label>
+                            <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" >
+                        </fieldset>
+                        <fieldset id="form-contato">
+                            <div class="titulo-fieldset"><img src="src/img/phone-fill.svg" alt="Ícone de telefone tocando"><h3 class="label">3. Contato</h3></div>
+                            <label class="caption" for="form-telefone">Telefone/ WhatsApp</label>
+                            <input type="tel" name="form-telefone" id="form-telefone" placeholder="Ex: (11) 91234-5678" >
+                            <label class="caption" for="form-recompensa">Recompensa (opcional)</label>
+                            <input type="number" name="form-recompensa" id="form-recompensa" placeholder="Ex: R$1.000,00" >
+                        </fieldset>
+                        <fieldset id="form-foto">
+                            <div class="titulo-fieldset"><img src="src/img/image-fill.svg" alt="Ícone de foto"><h3 class="label">4. Foto</h3></div>
+                            <label class="text" for="form-enviar-foto" id="button-enviar-foto">
+                                <img src="src/img/image-fill.svg" alt="Ícone de foto">
+                            Clique para enviar a foto ou arraste aqui
+                            </label>
+                            <input class="hidden" id="form-enviar-foto" type="file" accept="image/jpeg, image/png" />
+                        </fieldset>
+                    </form>
                 </div>
-                <form id="dados-form">
-                    <fieldset id="form-dados-desaparecido">
-                        <div class="titulo-fieldset"><img src="src/img/magnifying-glass.svg" alt="Ícone de lupa"><h3 class="label">1. Dados do desaparecido</h3></div>
-                        <label class="caption" for="form-nome">Nome da pessoa</label>
-                        <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" >
-                        <label class="caption" for="form-idade">Idade</label>
-                        <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" >
-                    </fieldset>
-                    <fieldset id="form-detalhes">
-                        <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
-                        <label class="caption" for="form-desc-desaparecimento">Descrição do desaparecimento</label>
-                        <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." ></textarea>
-                        <label class="caption" for="form-local">Local do desaparecimento</label>
-                        <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" >
-                        <label class="caption" for="form-data">Data do desaparecimento</label>
-                        <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" >
-                    </fieldset>
-                    <fieldset id="form-contato">
-                        <div class="titulo-fieldset"><img src="src/img/phone-fill.svg" alt="Ícone de telefone tocando"><h3 class="label">3. Contato</h3></div>
-                        <label class="caption" for="form-telefone">Telefone/ WhatsApp</label>
-                        <input type="tel" name="form-telefone" id="form-telefone" placeholder="Ex: (11) 91234-5678" >
-                        <label class="caption" for="form-recompensa">Recompensa (opcional)</label>
-                        <input type="number" name="form-recompensa" id="form-recompensa" placeholder="Ex: R$1.000,00" >
-                    </fieldset>
-                    <fieldset id="form-foto">
-                        <div class="titulo-fieldset"><img src="src/img/image-fill.svg" alt="Ícone de foto"><h3 class="label">4. Foto</h3></div>
-                        <input type="file" name="form-enviar-foto" id="form-enviar-foto">
-                    </fieldset>
-                </form>
-            <button type="submit"><img src="" alt=""><p>Baixar PNG</p></button>
-            <button type="submit"><img src="" alt=""><p>Baixar PDF</p></button>
+                <div id="buttons-baixar">
+                    <button id="button-baixar-png" type="submit"><img src="src/img/download-green.svg" alt="Ícone de Download"><p class="label">Baixar PNG</p></button>
+                    <button id="button-baixar-pdf" type="submit"><img src="src/img/download-white.svg" alt="Ícone de Download"><p class="label">Baixar PDF</p></button>
+                </div>
             </aside>
             <div id="espaco-cartaz-prev">
                 <p id="texto-prev" class="title">Pré-Visualização do cartaz</p>
