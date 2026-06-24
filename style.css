@@ -25,6 +25,7 @@
     --placeholder: #5B5B5B;
     --subtext: #5E5E5E;
     --white: #FFFFFF;
+    --red: #C80107;
 }
 
 /* Estilos de texto */
@@ -292,6 +293,16 @@ form > fieldset > label {
 }
 
 #prev-cartaz {
-    width: 100%;
+    text-align: center;
+    width: 800px;
     height: 100%;
+}
+
+#cartaz-titulo {
+    font-size: 96px;
+}
+
+.fundo-vermelho-cartaz {
+    color: var(--white);
+    background-color: #C80107;
 }
