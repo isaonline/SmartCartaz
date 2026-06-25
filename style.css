@@ -293,16 +293,65 @@ form > fieldset > label {
 }
 
 #prev-cartaz {
+    background-color: #FAFAFA;
     text-align: center;
-    width: 800px;
+    width: 700px;
     height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
 }
 
 #cartaz-titulo {
-    font-size: 96px;
+    font-size: 88px;
+    padding: 16px;
 }
 
 .fundo-vermelho-cartaz {
     color: var(--white);
     background-color: #C80107;
+    width: 100%;
+}
+
+#cartaz-imagem {
+    width: 90%;
+}
+
+#cartaz-nome {
+    font-size: 40px;
+    text-transform: uppercase;
+}
+
+#cartaz-idade {
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: auto;
+}
+
+#cartaz-desc {
+    width: 70%;
+    font-size: 20px;
+}
+
+#cartaz-loc-data, #cartaz-local, #cartaz-data {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#cartaz-telefone {
+    display: flex;
+    padding: 16px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+#cartaz-telefone > img {
+    width: 80px;
 }
