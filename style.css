@@ -290,33 +290,36 @@ form > fieldset > label {
 
 #texto-prev {
     color: var(--brand);
+    margin-bottom: 16px;
 }
 
 #prev-cartaz {
     background-color: #FAFAFA;
+    box-shadow: 1px 1px 5px var(--content);
     text-align: center;
     width: 700px;
-    height: 100%;
+    height: 1080px;
+    padding: 16px 0;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 8px;
 }
 
 #cartaz-titulo {
-    font-size: 88px;
+    font-size: 72px;
     padding: 16px;
+    width: 85%;
 }
 
 .fundo-vermelho-cartaz {
     color: var(--white);
     background-color: #C80107;
-    width: 100%;
 }
 
 #cartaz-imagem {
-    width: 90%;
+    width: 80%;
 }
 
 #cartaz-nome {
@@ -335,7 +338,7 @@ form > fieldset > label {
 
 #cartaz-desc {
     width: 70%;
-    font-size: 20px;
+    font-size: 18px;
 }
 
 #cartaz-loc-data, #cartaz-local, #cartaz-data {
@@ -349,9 +352,21 @@ form > fieldset > label {
     padding: 16px;
     justify-content: center;
     align-items: center;
-    gap: 8px;
+    gap: 16px;
+    width: 80%;
 }
 
 #cartaz-telefone > img {
-    width: 80px;
+    width: 72px;
+}
+
+#cartaz-tel-escolhido {
+    font-size: 48px;
+    font-weight: 900;
+}
+
+#cartaz-frase {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-weight: 600;
 }
