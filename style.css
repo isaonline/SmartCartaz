@@ -273,14 +273,15 @@ form > fieldset > label {
 
 /* Pré-visualização */
 
+#criar-cartaz {
+    height: 100%;
+}
+
 #espaco-cartaz-prev {
     background-image: url(src/img/pattern-dots.png);
     background-repeat: repeat;
     background-color: #FAFAFA;
     width: 100%;
-    height: calc(100vh - 59px);
-    top: 57px;
-    left: 487px;
     display: flex;
     flex-flow: column nowrap;
     align-items: center;
@@ -289,7 +290,7 @@ form > fieldset > label {
 
 #texto-prev {
     color: var(--brand);
-    margin-bottom: 16px;
+    margin: 16px;
 }
 
 #prev-cartaz {
