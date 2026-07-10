@@ -10,7 +10,7 @@
 }
 
 .hidden {
-    display: none;
+    display: none !important;
 }
 
 :root {
@@ -61,12 +61,11 @@
 /* Geral */
 
 html, body {
-    height: 100vh;
+    height: 100%;
 }
 
 main {
-    height: 100%;
-    width: 100%;
+    max-height: 100%;
 }
 
 /* Menu */
@@ -185,6 +184,20 @@ form > fieldset > label {
     grid-row: 3;
 }
 
+#form-raca {
+    grid-row: 5;
+    width: 211.5px;
+}
+
+#label-cor {
+    margin-left: -95px;
+}
+
+#form-cor {
+    margin-left: -95px;
+    width: 211.5px;
+}
+
 #form-detalhes {
     display: grid;
     grid: auto-flow / 257px 166px;
@@ -297,9 +310,8 @@ form > fieldset > label {
     background-color: #FAFAFA;
     box-shadow: 1px 1px 5px var(--content);
     text-align: center;
-    width: 650px;
+    width: 600px;
     height: 780px;
-    padding: 16px 0;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -319,7 +331,9 @@ form > fieldset > label {
 }
 
 #cartaz-imagem {
-    width: 65%;
+    width: 85%;
+    height: 230px;
+    object-fit: cover;
 }
 
 #cartaz-nome {
@@ -327,10 +341,31 @@ form > fieldset > label {
     text-transform: uppercase;
 }
 
+#cartaz-dados-basicos {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    justify-content: center;
+}
+
+#cartaz-dados-basicos > p {
+    display: inline;
+    white-space: nowrap;
+}
+
+#cartaz-raca, #cartaz-cor {
+    font-size: 16px;
+    padding: 8px 16px;
+    font-weight: 600;
+    width: 40%;
+    background-color: var(--border);
+    border-radius: 8px;
+}
+
 #cartaz-idade {
     padding: 8px 16px;
     border-radius: 8px;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
     width: auto;
@@ -353,7 +388,7 @@ form > fieldset > label {
     justify-content: center;
     align-items: center;
     gap: 16px;
-    width: 80%;
+    width: 85%;
 }
 
 #cartaz-telefone > img {
@@ -365,8 +400,19 @@ form > fieldset > label {
     font-weight: 900;
 }
 
-#cartaz-frase {
+#cartaz-frase, #cartaz-valor, #cartaz-cifrao, #cartaz-recompensa {
     text-transform: uppercase;
-    font-size: 24px;
+    font-size: 30px;
     font-weight: 600;
+    display: inline;
+}
+
+#cartaz-frase {
+    font-size: 24px;
+}
+
+#cartaz-cifrao, #cartaz-recompensa {
+    color: var(--red);
+    font-weight: 800;
+    font-size: 36px;
 }

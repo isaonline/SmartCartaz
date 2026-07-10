@@ -29,28 +29,32 @@
                         <button id="button-pet"><img src="src/img/paw-black-fill.svg" alt="Ícone de patinha"><p class="label">Pet</p></button>
                     </div>
                     <form id="dados-form">
-                        <fieldset id="form-dados-desaparecido">
+                        <fieldset id="form-dados-desaparecido" class="pet">
                             <div class="titulo-fieldset"><img src="src/img/magnifying-glass.svg" alt="Ícone de lupa"><h3 class="label">1. Dados do desaparecido</h3></div>
                             <label class="caption" for="form-nome">Nome da pessoa</label>
-                            <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" >
+                            <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" data-field="nome">
                             <label class="caption" for="form-idade">Idade</label>
-                            <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" >
+                            <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" data-field="idade">
+                            <label class="caption" for="form-raca">Raça (opcional)</label>
+                            <input type="text" name="form-raca" id="form-raca" placeholder="Ex: Shitzu" data-field="raca">
+                            <label class="caption" for="form-cor" id="label-cor">Cor (opcional)</label>
+                            <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja">
                         </fieldset>
                         <fieldset id="form-detalhes">
                             <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
                             <label class="caption" for="form-desc-desaparecimento">Descrição do desaparecimento</label>
-                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." ></textarea>
+                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." data-field="descricao"></textarea>
                             <label class="caption" for="form-local">Local do desaparecimento</label>
-                            <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" >
+                            <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" data-field="local">
                             <label class="caption" for="form-data">Data do desaparecimento</label>
-                            <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" >
+                            <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" data-field="data">
                         </fieldset>
                         <fieldset id="form-contato">
                             <div class="titulo-fieldset"><img src="src/img/phone-fill.svg" alt="Ícone de telefone tocando"><h3 class="label">3. Contato</h3></div>
                             <label class="caption" for="form-telefone">Telefone/ WhatsApp</label>
-                            <input type="tel" name="form-telefone" id="form-telefone" placeholder="Ex: (11) 91234-5678" >
+                            <input type="tel" name="form-telefone" id="form-telefone" placeholder="Ex: (11) 91234-5678" data-field="telefone">
                             <label class="caption" for="form-recompensa">Recompensa (opcional)</label>
-                            <input type="number" name="form-recompensa" id="form-recompensa" placeholder="Ex: R$1.000,00" >
+                            <input type="number" name="form-recompensa" id="form-recompensa" placeholder="Ex: R$1.000,00" data-field="recompensa">
                         </fieldset>
                         <fieldset id="form-foto">
                             <div class="titulo-fieldset"><img src="src/img/image-fill.svg" alt="Ícone de foto"><h3 class="label">4. Foto</h3></div>
@@ -58,7 +62,7 @@
                                 <img src="src/img/image-fill.svg" alt="Ícone de foto">
                             Clique para enviar a foto ou arraste aqui
                             </label>
-                            <input class="hidden" id="form-enviar-foto" type="file" accept="image/jpeg, image/png" />
+                            <input class="hidden" data-field="foto" id="form-enviar-foto" type="file" accept="image/jpeg, image/png" />
                         </fieldset>
                     </form>
                 </div>
@@ -73,16 +77,20 @@
                     <h3 id="cartaz-titulo" class="fundo-vermelho-cartaz">DESAPARECIDO</h3>
                     <img id="cartaz-imagem" src="/src/img/Person_facing_forward_soft_light.jpeg" alt="Imagem da pessoa desaparecida">
                     <h4 id="cartaz-nome">Nome da pessoa aqui</h4>
-                    <p id="cartaz-idade" class="fundo-vermelho-cartaz">Idade da pessoa aqui</p>
+                    <div id="cartaz-dados-basicos">
+                        <p id="cartaz-idade" class="fundo-vermelho-cartaz">Idade aqui</p>
+                        <p id="cartaz-raca">Raça do pet aqui</p>
+                        <p id="cartaz-cor">Cor do pet aqui</p>
+                    </div>
                     <p id="cartaz-desc">A descrição do desaparecimento com detalhes aparecerá aqui, não esqueça de escrever características físicas marcantes da pessoa.</p>
                     <div id="cartaz-loc-data">
                     <div id="cartaz-local">
                         <img src="/src/img/map-pin-fill.svg" alt="Ícone de local">
-                        <p>Bairro, Cidade - Estado</p>
+                        <p id="cartaz-texto-local">Bairro, Cidade - Estado</p>
                     </div>
                     <div id="cartaz-data">
                         <img src="/src/img/calendar-dots-fill.svg" alt="Ícone de data">
-                        <p>00/00/0000</p>
+                        <p id="cartaz-texto-data">00/00/0000</p>
                     </div>
                     </div>
                     <div id="cartaz-telefone" class="fundo-vermelho-cartaz">
@@ -93,6 +101,7 @@
                         </div>
                     </div>
                     <p id="cartaz-frase">Sua ajuda pode fazer a diferença!</p>
+                    <div id="cartaz-valor" class="hidden">RECOMPENSA: <p id="cartaz-cifrao">R$</p><p id="cartaz-recompensa">1.000,00</p></div>
                 </div>
             </div>
         </section>
