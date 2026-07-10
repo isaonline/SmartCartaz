@@ -29,16 +29,17 @@
                         <button id="button-pet"><img src="src/img/paw-black-fill.svg" alt="Ícone de patinha"><p class="label">Pet</p></button>
                     </div>
                     <form id="dados-form">
-                        <fieldset id="form-dados-desaparecido" class="pet">
+                        <fieldset id="form-dados-desaparecido">
                             <div class="titulo-fieldset"><img src="src/img/magnifying-glass.svg" alt="Ícone de lupa"><h3 class="label">1. Dados do desaparecido</h3></div>
                             <label class="caption" for="form-nome">Nome da pessoa</label>
                             <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" data-field="nome">
                             <label class="caption" for="form-idade">Idade</label>
                             <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" data-field="idade">
+                            <span id="dados-pet" class="hidden">
                             <label class="caption" for="form-raca">Raça (opcional)</label>
                             <input type="text" name="form-raca" id="form-raca" placeholder="Ex: Shitzu" data-field="raca">
                             <label class="caption" for="form-cor" id="label-cor">Cor (opcional)</label>
-                            <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja">
+                            <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja"></span>
                         </fieldset>
                         <fieldset id="form-detalhes">
                             <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
@@ -79,8 +80,8 @@
                     <h4 id="cartaz-nome">Nome da pessoa aqui</h4>
                     <div id="cartaz-dados-basicos">
                         <p id="cartaz-idade" class="fundo-vermelho-cartaz">Idade aqui</p>
-                        <p id="cartaz-raca">Raça do pet aqui</p>
-                        <p id="cartaz-cor">Cor do pet aqui</p>
+                        <p id="cartaz-raca" class="hidden">Raça do pet aqui</p>
+                        <p id="cartaz-cor" class="hidden">Cor do pet aqui</p>
                     </div>
                     <p id="cartaz-desc">A descrição do desaparecimento com detalhes aparecerá aqui, não esqueça de escrever características físicas marcantes da pessoa.</p>
                     <div id="cartaz-loc-data">
