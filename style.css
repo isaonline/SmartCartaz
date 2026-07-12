@@ -99,10 +99,15 @@ menu > button {
 
 #criar-cartaz {
     display: flex;
-    height: auto;
+    height: 100%;
+    min-height: 0;
 }
 
 aside {
+    min-width: 487px;
+    height: 100%;
+    flex-shrink: 0;
+    overflow-y: auto;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
@@ -123,7 +128,7 @@ aside {
 #buttons-trocar-tipo {
     display: flex;
     background-color: var(--background);
-    width: 439px;
+    width: 100%;
     height: 48px;
     border-radius: 6px;
     padding: 4px;
@@ -138,7 +143,7 @@ aside {
     align-items: center;
     justify-content: center;
     gap: 10px;
-    width: 210.5px;
+    width: 100%;
     height: 40px;
     border: none;
     border-radius: 4px;
@@ -232,7 +237,7 @@ form > fieldset > label, #dados-pet > label {
     justify-content: center;
     align-items: center;
     margin-top: 16px;
-    width: 439px;
+    width: 100%;
     height: 64px;
     border-color: var(--brand);
     border-radius: 4px;
@@ -258,7 +263,7 @@ form > fieldset > label, #dados-pet > label {
 }
 
 #buttons-baixar > button {
-    width: 211.5px;
+    width: 100%;
     height: 44px;
     display: flex;
     justify-content: center;

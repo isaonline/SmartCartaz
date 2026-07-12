@@ -10,10 +10,11 @@ formContainer.addEventListener('input', (event) => {
     if (!field) return;
 
     state[field] = event.target.value;
-
-    console.log(state);
+    renderPreview()
 })
 
+
+// Todos os campos da prévia de cartaz
 const preview = {
     nome: document.querySelector('#cartaz-nome'),
     idade: document.querySelector('#cartaz-idade'),
@@ -27,6 +28,7 @@ const preview = {
     foto: document.querySelector('#cartaz-imagem')
 }
 
+// Espaço para guardar cada placeholder dos campos
 const placeholders = {
     nome: "Nome da pessoa aqui",
     idade: "Idade da pessoa aqui",
@@ -40,9 +42,14 @@ const placeholders = {
 
 // Função para renderizar as mudanças na prévia
 function renderPreview() {
-for (const campo in preview) {
-        if (state[campo]) {
-            preview[campo].textContent = state[campo] || placeholders[campo];
+    for (const campo in preview) {
+            if (campo === 'idade') {
+                preview[campo].textContent = `${state[campo]} anos`
+            } else if (campo === 'data') {
+                const [ano, mes, dia] = state[campo].split('-')
+                preview[campo].textContent = `${dia}/${mes}/${ano}`
+            } else {
+                preview[campo].textContent = state[campo] || placeholders[campo]
+            }
         }
-    }
 }
