@@ -32,19 +32,19 @@
                         <fieldset id="form-dados-desaparecido">
                             <div class="titulo-fieldset"><img src="src/img/magnifying-glass.svg" alt="Ícone de lupa"><h3 class="label">1. Dados do desaparecido</h3></div>
                             <label class="caption" for="form-nome">Nome da pessoa</label>
-                            <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" data-field="nome">
+                            <input type="text" name="form-nome" id="form-nome" placeholder="Ex: Lucas Silva" data-field="nome" maxlength="40">
                             <label class="caption" for="form-idade">Idade</label>
-                            <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" data-field="idade">
+                            <input type="number" name="form-idade" id="form-idade" placeholder="Ex: 13" data-field="idade" min="0" max="120">
                             <span id="dados-pet" class="hidden">
                             <label class="caption" for="form-raca">Raça (opcional)</label>
-                            <input type="text" name="form-raca" id="form-raca" placeholder="Ex: Shitzu" data-field="raca">
+                            <input type="text" name="form-raca" id="form-raca" placeholder="Ex: Shitzu" data-field="raca" maxlength="20">
                             <label class="caption" for="form-cor" id="label-cor">Cor (opcional)</label>
-                            <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja"></span>
+                            <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja" maxlength="20"></span>
                         </fieldset>
                         <fieldset id="form-detalhes">
                             <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
                             <label class="caption" for="form-desc-desaparecimento">Descrição do desaparecimento</label>
-                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." data-field="descricao"></textarea>
+                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." data-field="descricao" maxlength="200"></textarea>
                             <label class="caption" for="form-local">Local do desaparecimento</label>
                             <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" data-field="local">
                             <label class="caption" for="form-data">Data do desaparecimento</label>
@@ -63,6 +63,7 @@
                                 <img src="src/img/image-fill.svg" alt="Ícone de foto">
                             Clique para enviar a foto ou arraste aqui
                             </label>
+                            <img id="preview-foto-input" class="hidden" alt="Prévia da foto">
                             <input class="hidden" data-field="foto" id="form-enviar-foto" type="file" accept="image/jpeg, image/png" />
                         </fieldset>
                     </form>

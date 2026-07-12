@@ -110,7 +110,7 @@ aside {
     overflow-y: auto;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: space-between;
+    justify-content: flex-start;
     padding: 24px 24px 8px 24px;
     top: 57px;
     border-right: 1px solid var(--border);
@@ -252,6 +252,15 @@ form > fieldset > label, #dados-pet > label {
     margin-right: 8px;
 }
 
+#preview-foto-input {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-right: 8px;
+    box-shadow: 7px 5px 25.2px 0px #00000040;
+}
+
 /* Botões para baixar em PNG ou PDF */
 
 #buttons-baixar {
@@ -313,15 +322,18 @@ form > fieldset > label, #dados-pet > label {
     text-align: center;
     width: 600px;
     height: 780px;
+    min-height: 780px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
     gap: 8px;
+    padding: 16px 0;
 }
 
 #cartaz-titulo {
-    font-size: 64px;
+    font-size: clamp(40px, 5vw, 64px);
     padding: 0 16px;
     width: 85%;
 }
@@ -334,12 +346,15 @@ form > fieldset > label, #dados-pet > label {
 #cartaz-imagem {
     width: 85%;
     height: 230px;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center;
 }
 
 #cartaz-nome {
-    font-size: 40px;
+    font-size: clamp(20px, 3vw, 40px);
     text-transform: uppercase;
+    overflow-wrap: break-word;
+    width: 85%;
 }
 
 #cartaz-dados-basicos {
@@ -374,7 +389,9 @@ form > fieldset > label, #dados-pet > label {
 
 #cartaz-desc {
     width: 80%;
-    font-size: 18px;
+    font-size: clamp(12px, 1.5vw, 18px);
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 #cartaz-loc-data, #cartaz-local, #cartaz-data {
@@ -397,7 +414,7 @@ form > fieldset > label, #dados-pet > label {
 }
 
 #cartaz-tel-escolhido {
-    font-size: 48px;
+    font-size: clamp(28px, 4vw, 48px);
     font-weight: 900;
 }
 
