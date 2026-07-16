@@ -82,6 +82,8 @@ function ajustarFontesCartaz() {
     preview.nome.style.fontSize = '40px'
     preview.descricao.style.fontSize = '18px'
     
+    cartaz.style.overflow = 'visible'
+
     let tamanhoNome = 40
     let tamanhoDesc = 18
     
@@ -91,17 +93,21 @@ function ajustarFontesCartaz() {
         preview.nome.style.fontSize = tamanhoNome + 'px'
         preview.descricao.style.fontSize = tamanhoDesc + 'px'
     }
+
+    cartaz.style.overflow = 'hidden'
 }
 
 // Função para renderizar as mudanças na prévia
 function renderPreview() {
     for (const campo in preview) {
+            if (campo === 'foto') continue
+
             if (campo === 'idade') {
                 preview[campo].textContent = state[campo] 
                 ? `${state[campo]} anos` 
                 : placeholders[campo]
             } else if (campo === 'data') {
-                if (!state[campo]) return
+                if (!state[campo]) continue
                 const [ano, mes, dia] = state[campo].split('-')
                 preview[campo].textContent = `${dia}/${mes}/${ano}`
             } else {
