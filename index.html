@@ -63,7 +63,10 @@
                                 <img src="src/img/image-fill.svg" alt="Ícone de foto">
                             Clique para enviar a foto ou arraste aqui
                             </label>
-                            <img id="preview-foto-input" class="hidden" alt="Prévia da foto">
+                            <div id="container-preview-foto" class="hidden">
+                                <img id="preview-foto-input" alt="Prévia da foto">
+                                <button id="button-excluir-foto" type="button">✕</button>
+                            </div>
                             <input class="hidden" data-field="foto" id="form-enviar-foto" type="file" accept="image/jpeg, image/png" />
                         </fieldset>
                     </form>

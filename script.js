@@ -14,6 +14,8 @@ formContainer.addEventListener('input', (event) => {
     if (!field) return;
 
     if (field === 'telefone') {
+        event.target.value = event.target.value.replace(/\D/g, '')
+
         if (!event.target.value) {
         state[field] = ''
         } else {
@@ -81,14 +83,26 @@ inputFoto.addEventListener('change', (event) => {
         
         preview.foto.src = urlTemporaria
 
+        const container = document.querySelector('#container-preview-foto')
         const previewInput = document.querySelector('#preview-foto-input')
         const iconeFoto = document.querySelector('#icon-foto')
         previewInput.src = urlTemporaria
-        previewInput.classList.remove('hidden')
+        container.classList.remove('hidden')
         iconeFoto.classList.add('hidden')
     }
     
     img.src = urlTemporaria
+})
+
+// Listener do botão para excluir a imagem
+document.querySelector('#button-excluir-foto').addEventListener('click', () => {
+    const container = document.querySelector('#container-preview-foto')
+    const iconeFoto = document.querySelector('#icon-foto')
+    
+    inputFoto.value = ''  // limpa o input de arquivo
+    preview.foto.src = placeholders.foto  // volta pra imagem padrão
+    container.classList.add('hidden')
+    iconeFoto.classList.remove('hidden')
 })
 
 
