@@ -1,5 +1,7 @@
 const formContainer = document.querySelector('#dados-form')
 const inputFoto = document.querySelector('#form-enviar-foto')
+const cartazFrase = document.querySelector('#cartaz-frase')
+const cartazValor = document.querySelector('#cartaz-valor')
 
 // Estado que vai ler cada informação colocada nos inputs
 const state = {}
@@ -10,7 +12,38 @@ formContainer.addEventListener('input', (event) => {
 
     if (!field) return;
 
-    state[field] = event.target.value;
+    if (field === 'telefone') {
+        if (!event.target.value) {
+        state[field] = ''
+        } else {
+            const formatado = formatarTelefone(event.target.value)
+            state[field] = formatado
+        }
+    } else if (field === 'idade') {
+        const numero = parseInt(event.target.value)
+        if (numero > 120) {
+            event.target.value = 120 
+            state[field] = '120'
+        } else if (numero < 0) {
+            event.target.value = 0
+            state[field] = '0'
+        } else {
+            state[field] = event.target.value
+        }
+    } else if (field === 'recompensa') {
+        const numeros = event.target.value.replace(/\D/g, '')
+        if (numeros.length > 10) {  
+            event.target.value = event.target.value.slice(0, -1)
+            return
+        }
+        const numero = parseInt(numeros)
+        if (!event.target.value || numero === 0) {
+            state[field] = ''
+        } else {
+            state[field] = formatarRecompensa(event.target.value)
+        }
+    }
+
     renderPreview()
 })
 
@@ -114,5 +147,39 @@ function renderPreview() {
                 preview[campo].textContent = state[campo] || placeholders[campo]
             }
         }
+
+        if (state.recompensa) {
+            cartazFrase.classList.add('hidden')
+            cartazValor.classList.remove('hidden')
+        } else {
+            cartazFrase.classList.remove('hidden')
+            cartazValor.classList.add('hidden')
+        }
+
         ajustarFontesCartaz()
+}
+
+// Função para formatar o telefone digitado
+function formatarTelefone(valor) {
+    const numeros = valor.replace(/\D/g, '')
+    
+    if (numeros.length <= 2) return `(${numeros}`
+    if (numeros.length <= 10) {
+        if (numeros.length <= 6) return `(${numeros.slice(0, 2)}) ${numeros.slice(2)}`
+        return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 6)}-${numeros.slice(6)}`
+    }
+    
+    return `(${numeros.slice(0, 2)}) ${numeros.slice(2, 7)}-${numeros.slice(7, 11)}`
+}
+
+// Função para formatar valores na recompensa
+function formatarRecompensa(valor) {
+    const numeros = valor.replace(/\D/g, '')
+    if (!numeros) return ''
+    
+    const numero = parseInt(numeros) / 100
+    return numero.toLocaleString('pt-BR', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    })
 }
