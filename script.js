@@ -273,9 +273,57 @@ document.querySelector('#button-baixar-pdf').addEventListener('click', () => {
     baixarPDF()
 })
 
+async function prepararCartazParaCaptura() {
+    const imgCartaz = document.querySelector('#cartaz-imagem')
+    
+    const srcOriginal = imgCartaz.src
+    const alturaOriginal = imgCartaz.style.height
+    
+    const imgElement = new Image()
+    imgElement.crossOrigin = 'anonymous'
+    imgElement.src = srcOriginal
+    
+    await new Promise(resolve => imgElement.onload = resolve)
+    
+    const canvas = document.createElement('canvas')
+    const ctx = canvas.getContext('2d')
+    
+    const larguraExibicao = imgCartaz.offsetWidth
+    const alturaExibicao = imgCartaz.offsetHeight
+    
+    const escalaCanvas = 2
+    canvas.width = larguraExibicao * escalaCanvas
+    canvas.height = alturaExibicao * escalaCanvas
+    ctx.scale(escalaCanvas, escalaCanvas)
+    
+    const escala = Math.min(larguraExibicao / imgElement.naturalWidth, alturaExibicao / imgElement.naturalHeight)
+    const w = imgElement.naturalWidth * escala
+    const h = imgElement.naturalHeight * escala
+    const x = (larguraExibicao - w) / 2
+    const y = (alturaExibicao - h) / 2
+    
+    ctx.fillStyle = '#FAFAFA'
+    ctx.fillRect(0, 0, larguraExibicao, alturaExibicao)
+    ctx.drawImage(imgElement, x, y, w, h)
+    
+    imgCartaz.src = canvas.toDataURL('image/png', 1.0)
+    imgCartaz.style.objectFit = 'fill'
+    
+    return { imgCartaz, srcOriginal, alturaOriginal }
+}
+
+function restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal }) {
+    imgCartaz.src = srcOriginal
+    imgCartaz.style.objectFit = 'contain'
+    imgCartaz.style.height = alturaOriginal
+}
+
 async function baixarPNG() {
+    const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
+    restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    
     const link = document.createElement('a')
     link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
     link.href = canvas.toDataURL('image/png')
@@ -283,20 +331,16 @@ async function baixarPNG() {
 }
 
 async function baixarPDF() {
+    const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
+    restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    
     const imgData = canvas.toDataURL('image/png')
-
     const { jsPDF } = window.jspdf
-    const pdf = new jsPDF({
-        orientation: 'portrait',
-        unit: 'mm',
-        format: 'a4'
-    })
-
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
     const larguraMM = pdf.internal.pageSize.getWidth()
     const alturaMM = pdf.internal.pageSize.getHeight()
-
     pdf.addImage(imgData, 'PNG', 0, 0, larguraMM, alturaMM)
     pdf.save(`cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.pdf`)
 }

@@ -375,7 +375,7 @@ form > fieldset > label, #dados-pet > label {
 #cartaz-titulo {
     font-size: 60px;
     padding: 0 16px;
-    width: 85%;
+    width: 90%;
 }
 
 .fundo-vermelho-cartaz {
@@ -456,6 +456,13 @@ form > fieldset > label, #dados-pet > label {
 #cartaz-tel-escolhido {
     font-size: 40px;
     font-weight: 900;
+}
+
+#cartaz-entre-em-contato {
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 #cartaz-frase, #cartaz-valor {
