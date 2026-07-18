@@ -135,7 +135,7 @@ const placeholders = {
 // Função para ajustar as fontes
 function ajustarFontesCartaz() {
     const cartaz = document.querySelector('#prev-cartaz')
-    const alturaMaxima = 764
+    const alturaMaxima = 792 - 16
 
     const clone = cartaz.cloneNode(true)
     clone.style.position = 'fixed'
@@ -159,15 +159,15 @@ function ajustarFontesCartaz() {
     cloneValor.style.fontSize = '30px'
     cloneNome.style.fontSize = '40px'
     cloneDesc.style.fontSize = '18px'
-    cloneTel.style.fontSize = '48px'
-    cloneTitulo.style.fontSize = '64px'
+    cloneTel.style.fontSize = '40px'
+    cloneTitulo.style.fontSize = '60px'
 
     let tamanhoFrase = 24
     let tamanhoValor = 30
     let tamanhoNome = 40
     let tamanhoDesc = 18
-    let tamanhoTel = 48
-    let tamanhoTitulo = 64
+    let tamanhoTel = 40
+    let tamanhoTitulo = 60
 
     while (clone.scrollHeight > alturaMaxima && tamanhoNome > 16) {
         tamanhoNome -= 0.5    
@@ -247,4 +247,56 @@ function formatarRecompensa(valor) {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })
+}
+
+// Funcionalidade dos botões de Baixar PNG e PDF
+const camposObrigatorios = ['nome', 'idade', 'descricao', 'local', 'data', 'telefone']
+
+function validarCampos() {
+    const camposFaltando = camposObrigatorios.filter(campo => !state[campo])
+    return camposFaltando.length === 0
+}
+
+document.querySelector('#button-baixar-png').addEventListener('click', () => {
+    if (!validarCampos()) {
+        alert('Preencha todos os campos obrigatórios antes de baixar: nome, idade, descrição, local, data e telefone.')
+        return
+    }
+    baixarPNG()
+})
+
+document.querySelector('#button-baixar-pdf').addEventListener('click', () => {
+    if (!validarCampos()) {
+        alert('Preencha todos os campos obrigatórios antes de baixar: nome, idade, descrição, local, data e telefone.')
+        return
+    }
+    baixarPDF()
+})
+
+async function baixarPNG() {
+    const cartaz = document.querySelector('#prev-cartaz')
+    const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
+    const link = document.createElement('a')
+    link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
+    link.href = canvas.toDataURL('image/png')
+    link.click()
+}
+
+async function baixarPDF() {
+    const cartaz = document.querySelector('#prev-cartaz')
+    const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
+    const imgData = canvas.toDataURL('image/png')
+
+    const { jsPDF } = window.jspdf
+    const pdf = new jsPDF({
+        orientation: 'portrait',
+        unit: 'mm',
+        format: 'a4'
+    })
+
+    const larguraMM = pdf.internal.pageSize.getWidth()
+    const alturaMM = pdf.internal.pageSize.getHeight()
+
+    pdf.addImage(imgData, 'PNG', 0, 0, larguraMM, alturaMM)
+    pdf.save(`cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.pdf`)
 }

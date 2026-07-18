@@ -67,6 +67,8 @@ html, body {
 main {
     height: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Menu */
@@ -77,6 +79,8 @@ nav {
     padding: 0 24px;
     width: 100%;
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+    align-items: center; 
 }
 
 menu {
@@ -99,22 +103,25 @@ menu > button {
 /* Criar Cartaz */
 
 #criar-cartaz {
+    flex: 1;
+    min-height: 0;
     display: flex;
     height: 100%;
-    min-height: 0;
 }
 
 aside {
+    flex-direction: column;
     min-width: 487px;
     height: 100%;
     flex-shrink: 0;
     overflow-y: auto;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
     padding: 24px 24px 8px 24px;
-    top: 57px;
     border-right: 1px solid var(--border);
+}
+
+#conteudo-form {
+    flex: 1;
 }
 
 #conteudo-form > h2 {
@@ -296,6 +303,7 @@ form > fieldset > label, #dados-pet > label {
     align-items: center;
     gap: 16px;
     margin-top: 24px;
+    flex-shrink: 0; 
 }
 
 #buttons-baixar > button {
@@ -351,10 +359,10 @@ form > fieldset > label, #dados-pet > label {
     background-color: #FAFAFA;
     box-shadow: 1px 1px 5px var(--content);
     text-align: center;
-    width: 600px;
-    height: 780px;
-    min-height: 780px;
-    max-height: 780px; 
+    width: 560px;
+    height: 792px;
+    min-height: 792px;
+    max-height: 792px;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -365,7 +373,7 @@ form > fieldset > label, #dados-pet > label {
 }
 
 #cartaz-titulo {
-    font-size: 64px;
+    font-size: 60px;
     padding: 0 16px;
     width: 85%;
 }
@@ -377,7 +385,7 @@ form > fieldset > label, #dados-pet > label {
 
 #cartaz-imagem {
     width: 85%;
-    height: 230px;
+    height: 200px;
     object-fit: contain;
     object-position: center;
 }
@@ -442,11 +450,11 @@ form > fieldset > label, #dados-pet > label {
 }
 
 #cartaz-telefone > img {
-    width: 72px;
+    width: 56px;
 }
 
 #cartaz-tel-escolhido {
-    font-size: 48px;
+    font-size: 40px;
     font-weight: 900;
 }
 
