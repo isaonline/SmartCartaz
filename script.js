@@ -1,8 +1,15 @@
 const formContainer = document.querySelector('#dados-form')
 const inputFoto = document.querySelector('#form-enviar-foto')
+const cartazImagem = document.querySelector('#cartaz-imagem')
 const cartazFrase = document.querySelector('#cartaz-frase')
 const cartazValor = document.querySelector('#cartaz-valor')
 const cartazTitulo = document.querySelector('#cartaz-titulo')
+const buttonTrocarTipo = document.querySelector("#buttons-trocar-tipo")
+const inputsDadosPet = document.querySelector('#dados-pet')
+const racaPetPrevia = document.querySelector('#cartaz-raca')
+const corPetPrevia = document.querySelector('#cartaz-cor')
+const camposObrigatorios = ['nome', 'idade', 'descricao', 'local', 'data', 'telefone', 'foto']
+let fotoUrlAtual = null
 
 // Estado que vai ler cada informação colocada nos inputs
 const state = {}
@@ -14,12 +21,18 @@ formContainer.addEventListener('input', (event) => {
     if (!field) return;
 
     if (field === 'telefone') {
-        event.target.value = event.target.value.replace(/\D/g, '')
+        const digitos = event.target.value.replace(/\D/g, '')
 
-        if (!event.target.value) {
-        state[field] = ''
+        if (digitos.length > 11) {
+            digitos = digitos.slice(0, 11)
+        }
+
+        if (!digitos) {
+            event.target.value = ''
+            state[field] = ''
         } else {
-            const formatado = formatarTelefone(event.target.value)
+            const formatado = formatarTelefone(digitos)
+            event.target.value = formatado
             state[field] = formatado
         }
     } else if (field === 'idade') {
@@ -40,10 +53,17 @@ formContainer.addEventListener('input', (event) => {
             return
         }
         const numero = parseInt(numeros)
+        const avisoRecompensa = document.querySelector('#aviso-recompensa')
+
         if (!event.target.value || numero === 0) {
             state[field] = ''
+            avisoRecompensa.classList.add('hidden')
+        } else if (numero < 1000) {
+            state[field] = ''
+            avisoRecompensa.classList.remove('hidden')   // ← mostra o aviso
         } else {
             state[field] = formatarRecompensa(event.target.value)
+            avisoRecompensa.classList.add('hidden')
         }
     } else if (field === 'data') {
         const partes = event.target.value.split('-')
@@ -64,7 +84,12 @@ inputFoto.addEventListener('change', (event) => {
     const arquivo = event.target.files[0]
     if (!arquivo) return
 
+    if (fotoUrlAtual) {
+        URL.revokeObjectURL(fotoUrlAtual)
+    }
+
     const urlTemporaria = URL.createObjectURL(arquivo)
+    fotoUrlAtual = urlTemporaria
     const img = new Image()
     
     img.onload = () => {
@@ -85,10 +110,10 @@ inputFoto.addEventListener('change', (event) => {
 
         const container = document.querySelector('#container-preview-foto')
         const previewInput = document.querySelector('#preview-foto-input')
-        const iconeFoto = document.querySelector('#icon-foto')
+        const areaEnviarFoto = document.querySelector('#button-enviar-foto')
         previewInput.src = urlTemporaria
         container.classList.remove('hidden')
-        iconeFoto.classList.add('hidden')
+        areaEnviarFoto.classList.add('hidden')
     }
     
     img.src = urlTemporaria
@@ -97,12 +122,17 @@ inputFoto.addEventListener('change', (event) => {
 // Listener do botão para excluir a imagem
 document.querySelector('#button-excluir-foto').addEventListener('click', () => {
     const container = document.querySelector('#container-preview-foto')
-    const iconeFoto = document.querySelector('#icon-foto')
+    const areaEnviarFoto = document.querySelector('#button-enviar-foto')
     
-    inputFoto.value = ''  // limpa o input de arquivo
-    preview.foto.src = placeholders.foto  // volta pra imagem padrão
+    if (fotoUrlAtual) {
+        URL.revokeObjectURL(fotoUrlAtual)
+        fotoUrlAtual = null
+    }
+
+    inputFoto.value = ''
+    preview.foto.src = placeholders.foto
     container.classList.add('hidden')
-    iconeFoto.classList.remove('hidden')
+    areaEnviarFoto.classList.remove('hidden')
 })
 
 
@@ -154,6 +184,9 @@ function ajustarFontesCartaz() {
     const cloneTitulo = clone.querySelector('#cartaz-titulo')
     const cloneFrase = clone.querySelector('#cartaz-frase')
     const cloneValor = clone.querySelector('#cartaz-valor')
+    const cloneIdade = clone.querySelector('#cartaz-idade')
+    const cloneRaca = clone.querySelector('#cartaz-raca')
+    const cloneCor = clone.querySelector('#cartaz-cor')
 
     cloneFrase.style.fontSize = '24px'
     cloneValor.style.fontSize = '30px'
@@ -161,6 +194,9 @@ function ajustarFontesCartaz() {
     cloneDesc.style.fontSize = '18px'
     cloneTel.style.fontSize = '40px'
     cloneTitulo.style.fontSize = '60px'
+    cloneIdade.style.fontSize = '16px'
+    cloneRaca.style.fontSize = '16px'
+    cloneCor.style.fontSize = '16px'
 
     let tamanhoFrase = 24
     let tamanhoValor = 30
@@ -168,6 +204,7 @@ function ajustarFontesCartaz() {
     let tamanhoDesc = 18
     let tamanhoTel = 40
     let tamanhoTitulo = 60
+    let tamanhoDadosBasicos = 16
 
     while (clone.scrollHeight > alturaMaxima && tamanhoNome > 16) {
         tamanhoNome -= 0.5    
@@ -176,7 +213,11 @@ function ajustarFontesCartaz() {
         tamanhoTitulo = Math.max(36, tamanhoTitulo - 1.5)
         tamanhoFrase = Math.max(16, tamanhoFrase - 1)
         tamanhoValor = Math.max(20, tamanhoValor - 1)
+        tamanhoDadosBasicos = Math.max(12, tamanhoDadosBasicos - 0.3)
 
+        cloneIdade.style.fontSize = tamanhoDadosBasicos + 'px'
+        cloneRaca.style.fontSize = tamanhoDadosBasicos + 'px'
+        cloneCor.style.fontSize = tamanhoDadosBasicos + 'px'
         cloneValor.style.fontSize = tamanhoValor + 'px'
         cloneFrase.style.fontSize = tamanhoFrase + 'px'
         cloneNome.style.fontSize = tamanhoNome + 'px'
@@ -191,14 +232,33 @@ function ajustarFontesCartaz() {
     cartazTitulo.style.fontSize = tamanhoTitulo + 'px'
     cartazFrase.style.fontSize = tamanhoFrase + 'px'
     cartazValor.style.fontSize = tamanhoValor + 'px'
+    preview.idade.style.fontSize = tamanhoDadosBasicos + 'px'
+    preview.raca.style.fontSize = tamanhoDadosBasicos + 'px'
+    preview.cor.style.fontSize = tamanhoDadosBasicos + 'px'
 
     document.body.removeChild(clone)
 }
+
+// Debounce para poupar recursos
+
+function debounce(funcao, atraso) {
+    let temporizador
+
+    return function(...args) {
+        clearTimeout(temporizador)
+        temporizador = setTimeout(() => {
+            funcao.apply(this, args)
+        }, atraso)
+    }
+}
+
+const ajustarFontesCartazComAtraso = debounce(ajustarFontesCartaz, 100)
 
 // Função para renderizar as mudanças na prévia
 function renderPreview() {
     for (const campo in preview) {
             if (campo === 'foto') continue
+            if (campo === 'raca' || campo === 'cor') continue
 
             if (campo === 'idade') {
                 preview[campo].textContent = state[campo] 
@@ -213,6 +273,18 @@ function renderPreview() {
             }
         }
 
+        if (state.raca) {
+            preview.raca.textContent = state.raca
+        } else {
+            preview.raca.textContent = 'Raça do pet aqui'
+        }
+
+        if (state.cor) {
+            preview.cor.textContent = state.cor
+        } else {
+            preview.cor.textContent = 'Cor do pet aqui'
+        }
+
         if (state.recompensa) {
             cartazFrase.classList.add('hidden')
             cartazValor.classList.remove('hidden')
@@ -221,7 +293,7 @@ function renderPreview() {
             cartazValor.classList.add('hidden')
         }
 
-        ajustarFontesCartaz()
+        ajustarFontesCartazComAtraso()
 }
 
 // Função para formatar o telefone digitado
@@ -240,7 +312,7 @@ function formatarTelefone(valor) {
 // Função para formatar valores na recompensa
 function formatarRecompensa(valor) {
     const numeros = valor.replace(/\D/g, '')
-    if (!numeros) return ''
+    if (!numeros || numeros < 1000) return ''
     
     const numero = parseInt(numeros) / 100
     return numero.toLocaleString('pt-BR', {
@@ -250,7 +322,6 @@ function formatarRecompensa(valor) {
 }
 
 // Funcionalidade dos botões de Baixar PNG e PDF
-const camposObrigatorios = ['nome', 'idade', 'descricao', 'local', 'data', 'telefone']
 
 function validarCampos() {
     const camposFaltando = camposObrigatorios.filter(campo => !state[campo])
@@ -259,7 +330,7 @@ function validarCampos() {
 
 document.querySelector('#button-baixar-png').addEventListener('click', () => {
     if (!validarCampos()) {
-        alert('Preencha todos os campos obrigatórios antes de baixar: nome, idade, descrição, local, data e telefone.')
+        alert('Preencha todos os campos obrigatórios antes de baixar: foto, nome, idade, descrição, local, data e telefone.')
         return
     }
     baixarPNG()
@@ -267,7 +338,7 @@ document.querySelector('#button-baixar-png').addEventListener('click', () => {
 
 document.querySelector('#button-baixar-pdf').addEventListener('click', () => {
     if (!validarCampos()) {
-        alert('Preencha todos os campos obrigatórios antes de baixar: nome, idade, descrição, local, data e telefone.')
+        alert('Preencha todos os campos obrigatórios antes de baixar: foto, nome, idade, descrição, local, data e telefone.')
         return
     }
     baixarPDF()
@@ -290,7 +361,6 @@ async function prepararCartazParaCaptura() {
     
     const larguraExibicao = imgCartaz.offsetWidth
     const alturaExibicao = imgCartaz.offsetHeight
-    
     const escalaCanvas = 2
     canvas.width = larguraExibicao * escalaCanvas
     canvas.height = alturaExibicao * escalaCanvas
@@ -318,11 +388,32 @@ function restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal }) {
     imgCartaz.style.height = alturaOriginal
 }
 
+function ocultarCamposVaziosParaExport() {
+    const camposEscondidos = []
+
+    if (!state.raca && !racaPetPrevia.classList.contains('hidden')) {
+        racaPetPrevia.classList.add('hidden')
+        camposEscondidos.push(racaPetPrevia)
+    }
+    if (!state.cor && !corPetPrevia.classList.contains('hidden')) {
+        corPetPrevia.classList.add('hidden')
+        camposEscondidos.push(corPetPrevia)
+    }
+
+    return camposEscondidos
+}
+
+function restaurarCamposVazios(camposEscondidos) {
+    camposEscondidos.forEach(campo => campo.classList.remove('hidden'))
+}
+
 async function baixarPNG() {
+    const camposEscondidos = ocultarCamposVaziosParaExport()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarCamposVazios(camposEscondidos)
     
     const link = document.createElement('a')
     link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
@@ -331,10 +422,12 @@ async function baixarPNG() {
 }
 
 async function baixarPDF() {
+    const camposEscondidos = ocultarCamposVaziosParaExport()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarCamposVazios(camposEscondidos)
     
     const imgData = canvas.toDataURL('image/png')
     const { jsPDF } = window.jspdf
@@ -344,3 +437,45 @@ async function baixarPDF() {
     pdf.addImage(imgData, 'PNG', 0, 0, larguraMM, alturaMM)
     pdf.save(`cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.pdf`)
 }
+
+// Funcionalidades relacionadas à trocar para o modo de Pet do cartaz
+
+buttonTrocarTipo.addEventListener('click', (event) => {
+    const botaoClicado = event.target.closest('button')
+    if (!botaoClicado) return
+
+    switch (botaoClicado.id) {
+        case 'button-pessoa':
+            const buttonPet = botaoClicado.nextElementSibling
+            const imgIconeAtualPessoa = botaoClicado.querySelector('img')
+            const imgIconePet = buttonPet.querySelector('img')
+
+            botaoClicado.classList.add('button-tipo-active')
+            buttonPet.classList.remove('button-tipo-active')
+            imgIconeAtualPessoa.src = '/src/img/person-white-fill.svg'
+            imgIconePet.src = '/src/img/paw-black-fill.svg'
+            cartazImagem.src = '/src/img/Person_facing_forward_soft_light.jpeg'
+            inputsDadosPet.classList.add('hidden')
+            racaPetPrevia.classList.add('hidden')
+            corPetPrevia.classList.add('hidden')
+
+            break
+        case 'button-pet':
+            const buttonPessoa = botaoClicado.previousElementSibling
+            const imgIconeAtualPet = botaoClicado.querySelector('img')
+            const imgIconePessoa = buttonPessoa.querySelector('img')
+
+            botaoClicado.classList.add('button-tipo-active')
+            buttonPessoa.classList.remove('button-tipo-active')
+            imgIconeAtualPet.src = '/src/img/paw-white-fill.svg'
+            imgIconePessoa.src = '/src/img/person-black-fill.svg'
+            cartazImagem.src = '/src/img/Dog_facing_forward_soft_light.jpeg'
+            inputsDadosPet.classList.remove('hidden')
+            racaPetPrevia.classList.remove('hidden')
+            corPetPrevia.classList.remove('hidden')
+
+            break
+        default:
+            break
+    }
+})
