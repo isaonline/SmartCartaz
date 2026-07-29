@@ -19,7 +19,7 @@
     --brand: #007F5B;
     --content: #171A17;
     --danger: #E91117;
-    --hover: #EFEFEF;
+    --hover: #e2e2e2;
     --input: #A2A2A2;
     --interaction: #EDF6F4;
     --placeholder: #5B5B5B;
@@ -116,12 +116,13 @@ aside {
     flex-shrink: 0;
     overflow-y: auto;
     display: flex;
-    padding: 24px 24px 8px 24px;
+    padding: 24px;
     border-right: 1px solid var(--border);
 }
 
 #conteudo-form {
     flex: 1;
+    min-height: 0;
 }
 
 #conteudo-form > h2 {
@@ -131,6 +132,10 @@ aside {
 
 #conteudo-form > p {
     color: var(--subtext);
+}
+
+button, label {
+    cursor: pointer;
 }
 
 #buttons-trocar-tipo {
@@ -163,7 +168,38 @@ aside {
     color: var(--white);
 }
 
+#buttons-trocar-tipo > button:not(.button-tipo-active):hover {
+    background-color: var(--hover);
+}
+
 /* Form */
+
+form > fieldset > input,
+form > fieldset > textarea,
+#dados-pet > input {
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+form > fieldset > input:hover,
+form > fieldset > textarea:hover,
+#dados-pet > input:hover {
+    border-color: var(--content);
+}
+
+form > fieldset > input:focus,
+form > fieldset > textarea:focus,
+#dados-pet > input:focus {
+    border-color: var(--brand);
+    outline: none;
+}
+
+#form-desc-desaparecimento:hover {
+    border-color: var(--content);
+}
+
+#form-desc-desaparecimento:focus {
+    border-color: var(--brand);
+}
 
 form > fieldset {
     border: none;
@@ -245,6 +281,7 @@ form > fieldset > label, #dados-pet > label {
     justify-content: center;
     align-items: center;
     margin-top: 16px;
+    margin-bottom: 0;
     width: 100%;
     height: 64px;
     border-color: var(--brand);
@@ -297,6 +334,14 @@ form > fieldset > label, #dados-pet > label {
 
 /* Botões para baixar em PNG ou PDF */
 
+#button-baixar-png:not(.botao-baixar-invalido):hover {
+    background-color: var(--interaction);
+}
+
+#button-baixar-pdf:not(.botao-baixar-invalido):hover {
+    background-color: #005940;
+}
+
 #buttons-baixar {
     display: flex;
     justify-content: center;
@@ -315,6 +360,11 @@ form > fieldset > label, #dados-pet > label {
     gap: 10px;
     border-radius: 4px;
     padding: 16px 10px;
+}
+
+.botao-baixar-invalido {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 #button-baixar-png {
@@ -365,7 +415,7 @@ form > fieldset > label, #dados-pet > label {
     max-height: 792px;
     display: flex;
     flex-flow: column nowrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
     overflow: hidden;
     gap: 16px;
@@ -417,7 +467,7 @@ form > fieldset > label, #dados-pet > label {
     padding: 8px 16px;
     font-weight: 600;
     max-width: 40%;
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     background-color: var(--border);
     border-radius: 8px;
 }

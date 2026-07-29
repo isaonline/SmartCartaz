@@ -107,6 +107,8 @@ inputFoto.addEventListener('change', (event) => {
         }
         
         preview.foto.src = urlTemporaria
+        state.foto = true
+        atualizarEstadoBotoesBaixar()
 
         const container = document.querySelector('#container-preview-foto')
         const previewInput = document.querySelector('#preview-foto-input')
@@ -131,6 +133,8 @@ document.querySelector('#button-excluir-foto').addEventListener('click', () => {
 
     inputFoto.value = ''
     preview.foto.src = placeholders.foto
+    state.foto = false
+    atualizarEstadoBotoesBaixar()
     container.classList.add('hidden')
     areaEnviarFoto.classList.remove('hidden')
 })
@@ -275,14 +279,16 @@ function renderPreview() {
 
         if (state.raca) {
             preview.raca.textContent = state.raca
+            preview.raca.classList.remove('hidden')
         } else {
-            preview.raca.textContent = 'Raça do pet aqui'
+            preview.raca.classList.add('hidden')
         }
 
         if (state.cor) {
             preview.cor.textContent = state.cor
+            preview.cor.classList.remove('hidden')
         } else {
-            preview.cor.textContent = 'Cor do pet aqui'
+            preview.cor.classList.add('hidden')
         }
 
         if (state.recompensa) {
@@ -294,6 +300,7 @@ function renderPreview() {
         }
 
         ajustarFontesCartazComAtraso()
+        atualizarEstadoBotoesBaixar()
 }
 
 // Função para formatar o telefone digitado
@@ -326,6 +333,15 @@ function formatarRecompensa(valor) {
 function validarCampos() {
     const camposFaltando = camposObrigatorios.filter(campo => !state[campo])
     return camposFaltando.length === 0
+}
+
+function atualizarEstadoBotoesBaixar() {
+    const valido = validarCampos()
+    const botaoPng = document.querySelector('#button-baixar-png')
+    const botaoPdf = document.querySelector('#button-baixar-pdf')
+
+    botaoPng.classList.toggle('botao-baixar-invalido', !valido)
+    botaoPdf.classList.toggle('botao-baixar-invalido', !valido)
 }
 
 document.querySelector('#button-baixar-png').addEventListener('click', () => {
@@ -388,32 +404,11 @@ function restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal }) {
     imgCartaz.style.height = alturaOriginal
 }
 
-function ocultarCamposVaziosParaExport() {
-    const camposEscondidos = []
-
-    if (!state.raca && !racaPetPrevia.classList.contains('hidden')) {
-        racaPetPrevia.classList.add('hidden')
-        camposEscondidos.push(racaPetPrevia)
-    }
-    if (!state.cor && !corPetPrevia.classList.contains('hidden')) {
-        corPetPrevia.classList.add('hidden')
-        camposEscondidos.push(corPetPrevia)
-    }
-
-    return camposEscondidos
-}
-
-function restaurarCamposVazios(camposEscondidos) {
-    camposEscondidos.forEach(campo => campo.classList.remove('hidden'))
-}
-
 async function baixarPNG() {
-    const camposEscondidos = ocultarCamposVaziosParaExport()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
-    restaurarCamposVazios(camposEscondidos)
     
     const link = document.createElement('a')
     link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
@@ -422,12 +417,10 @@ async function baixarPNG() {
 }
 
 async function baixarPDF() {
-    const camposEscondidos = ocultarCamposVaziosParaExport()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
-    restaurarCamposVazios(camposEscondidos)
     
     const imgData = canvas.toDataURL('image/png')
     const { jsPDF } = window.jspdf
@@ -471,11 +464,12 @@ buttonTrocarTipo.addEventListener('click', (event) => {
             imgIconePessoa.src = '/src/img/person-black-fill.svg'
             cartazImagem.src = '/src/img/Dog_facing_forward_soft_light.jpeg'
             inputsDadosPet.classList.remove('hidden')
-            racaPetPrevia.classList.remove('hidden')
-            corPetPrevia.classList.remove('hidden')
+            renderPreview()
 
             break
         default:
             break
     }
 })
+
+atualizarEstadoBotoesBaixar()
