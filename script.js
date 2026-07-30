@@ -36,34 +36,46 @@ formContainer.addEventListener('input', (event) => {
             state[field] = formatado
         }
     } else if (field === 'idade') {
-        const numero = parseInt(event.target.value)
-        if (numero > 120) {
-            event.target.value = 120 
+        const somenteNumeros = event.target.value.replace(/\D/g, '')
+        event.target.value = somenteNumeros
+        const numero = parseInt(somenteNumeros)
+
+        if (!somenteNumeros) {
+            state[field] = ''
+        } else if (numero > 120) {
+            event.target.value = 120
             state[field] = '120'
         } else if (numero < 0) {
             event.target.value = 0
             state[field] = '0'
         } else {
-            state[field] = event.target.value
+            state[field] = somenteNumeros
         }
     } else if (field === 'recompensa') {
         const numeros = event.target.value.replace(/\D/g, '')
-        if (numeros.length > 10) {  
+
+        if (numeros.length > 10) {
             event.target.value = event.target.value.slice(0, -1)
             return
         }
-        const numero = parseInt(numeros)
+
         const avisoRecompensa = document.querySelector('#aviso-recompensa')
 
-        if (!event.target.value || numero === 0) {
+        if (!numeros || parseInt(numeros) === 0) {
+            event.target.value = ''
             state[field] = ''
             avisoRecompensa.classList.add('hidden')
-        } else if (numero < 1000) {
-            state[field] = ''
-            avisoRecompensa.classList.remove('hidden')   // ← mostra o aviso
         } else {
-            state[field] = formatarRecompensa(event.target.value)
-            avisoRecompensa.classList.add('hidden')
+            const formatado = formatarRecompensa(numeros)
+            event.target.value = `R$ ${formatado}`
+
+            if (parseInt(numeros) < 1000) {
+                state[field] = ''
+                avisoRecompensa.classList.remove('hidden')
+            } else {
+                state[field] = formatado
+                avisoRecompensa.classList.add('hidden')
+            }
         }
     } else if (field === 'data') {
         const partes = event.target.value.split('-')
@@ -317,17 +329,13 @@ function formatarTelefone(valor) {
 }
 
 // Função para formatar valores na recompensa
-function formatarRecompensa(valor) {
-    const numeros = valor.replace(/\D/g, '')
-    if (!numeros || numeros < 1000) return ''
-    
-    const numero = parseInt(numeros) / 100
+function formatarRecompensa(valorEmCentavos) {
+    const numero = parseInt(valorEmCentavos) / 100
     return numero.toLocaleString('pt-BR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
     })
 }
-
 // Funcionalidade dos botões de Baixar PNG e PDF
 
 function validarCampos() {
@@ -447,7 +455,9 @@ buttonTrocarTipo.addEventListener('click', (event) => {
             buttonPet.classList.remove('button-tipo-active')
             imgIconeAtualPessoa.src = '/src/img/person-white-fill.svg'
             imgIconePet.src = '/src/img/paw-black-fill.svg'
-            cartazImagem.src = '/src/img/Person_facing_forward_soft_light.jpeg'
+            if (!state.foto) {
+                cartazImagem.src = '/src/img/Person_facing_forward_soft_light.jpeg'
+            }
             inputsDadosPet.classList.add('hidden')
             racaPetPrevia.classList.add('hidden')
             corPetPrevia.classList.add('hidden')
@@ -462,7 +472,9 @@ buttonTrocarTipo.addEventListener('click', (event) => {
             buttonPessoa.classList.remove('button-tipo-active')
             imgIconeAtualPet.src = '/src/img/paw-white-fill.svg'
             imgIconePessoa.src = '/src/img/person-black-fill.svg'
-            cartazImagem.src = '/src/img/Dog_facing_forward_soft_light.jpeg'
+            if (!state.foto) {
+                cartazImagem.src = '/src/img/Dog_facing_forward_soft_light.jpeg'
+            }
             inputsDadosPet.classList.remove('hidden')
             renderPreview()
 

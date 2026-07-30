@@ -114,7 +114,6 @@ aside {
     min-width: 487px;
     height: 100%;
     flex-shrink: 0;
-    overflow-y: auto;
     display: flex;
     padding: 24px;
     border-right: 1px solid var(--border);
@@ -123,6 +122,8 @@ aside {
 #conteudo-form {
     flex: 1;
     min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #conteudo-form > h2 {
@@ -132,6 +133,14 @@ aside {
 
 #conteudo-form > p {
     color: var(--subtext);
+}
+
+#dados-form {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 8px;
 }
 
 button, label {
@@ -388,7 +397,7 @@ form > fieldset > label, #dados-pet > label {
 #espaco-cartaz-prev {
     background-image: url(src/img/pattern-dots.png);
     background-repeat: repeat;
-    background-color: #FAFAFA;
+    background-color: #f7f7f7;
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
@@ -407,7 +416,8 @@ form > fieldset > label, #dados-pet > label {
 
 #prev-cartaz {
     background-color: #FAFAFA;
-    box-shadow: 1px 1px 5px var(--content);
+    box-shadow: 7px 5px 25.2px 0px #00000021;
+    border: 1px solid var(--border);
     text-align: center;
     width: 560px;
     height: 792px;
