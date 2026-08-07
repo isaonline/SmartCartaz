@@ -484,4 +484,21 @@ buttonTrocarTipo.addEventListener('click', (event) => {
     }
 })
 
+/* Menu de páginas */
+
+document.querySelector('nav > menu').addEventListener('click', (event) => {
+    const botaoClicado = event.target.closest('button')
+    if (!botaoClicado) return
+
+    const idAlvo = botaoClicado.dataset.target
+
+    document.querySelectorAll('main > section, main > article').forEach(secao => {
+        secao.classList.toggle('hidden', secao.id !== idAlvo)
+    })
+
+    document.querySelectorAll('menu > button').forEach(botao => {
+        botao.classList.toggle('menu-button-active', botao === botaoClicado)
+    })
+})
+
 atualizarEstadoBotoesBaixar()

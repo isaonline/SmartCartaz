@@ -14,9 +14,9 @@
         <nav>
             <img src="src/img/logo-smartcartaz.svg" alt="Logo SmartCartaz">
             <menu>
-                <button class="label menu-button-active">Criar Cartaz</button>
-                <button class="label">Como Usar</button>
-                <button class="label">Sobre Nós</button>
+                <button class="label menu-button-active" data-target="criar-cartaz">Criar Cartaz</button>
+                <button class="label" data-target="como-usar">Como Usar</button>
+                <button class="label" data-target="sobre-nos">Sobre Nós</button>
             </menu>
         </nav>
         <section id="criar-cartaz">
@@ -112,7 +112,38 @@
             </div>
         </section>
         <article id="como-usar" class="hidden">
-
+            <section id="cards-uso">
+                <div class="card-tutorial">
+                    <img src="/src/img/illust_tipo_desap.png" alt="Mulher apontando para uma interface com duas escolhas que mostra uma pessoa e um pet">
+                    <h6>1º Passo</h6>
+                    <h3 class="label">Selecione o tipo de desaparecimento</h3>
+                    <p class="text">Escolha se o desaparecido é uma pessoa ou um pet. Isso nos ajuda a exibir os campos corretos e criar um cartaz mais adequado para a situação.</p>
+                </div>
+                <div class="card-tutorial">
+                    <img src="/src/img/illust_info.png" alt="Uma mão segurando uma caneta preenchendo uma ficha de informações">
+                    <h6>2º Passo</h6>
+                    <h3 class="label">Preencha as informações</h3>
+                    <p class="text">Adicione o máximo de detalhes que conseguir lembrar, como nome, idade, características físicas, local onde foi visto pela última vez e demais informações.</p>
+                </div>
+                <div class="card-tutorial">
+                    <img src="/src/img/illust_foto.png" alt="Uma foto de um cachorro, com um símbolo de enviar arquivo ao lado">
+                    <h6>3º Passo</h6>
+                    <h3 class="label">Anexe uma foto</h3>
+                    <p class="text">Envie uma foto nítida e recente do desaparecido. Imagens de boa qualidade ajudam na identificação e tornam o cartaz mais eficaz.</p>
+                </div>
+                <div class="card-tutorial card-baixe">
+                    <img src="/src/img/illust_cartaz.png" alt="Um cartaz de um gato desaparecido, com os símbolos de baixar arquivo, png e pdf ao lado">
+                    <h6>4º Passo</h6>
+                    <h3 class="label">Baixe e compartilhe o cartaz</h3>
+                    <p class="text">Depois de finalizar as etapas, o cartaz estará pronto para download. Você poderá salvar em PNG, ideal para compartilhar online, ou em PDF, recomendado para impressão e divulgação em locais públicos.</p>
+                </div>
+                <div class="card-tutorial card-divulgue">
+                    <img src="/src/img/illust_divulgue.png" alt="Duas mãos segurando um celular, com um conteúdo mostrando um cachorro desaparecido e símbolos ao redor do WhatsApp e Facebook">
+                    <h6>5º Passo</h6>
+                    <h3 class="label">Continue divulgando e mantendo a esperança</h3>
+                    <p class="text">Sabemos como esse momento pode ser difícil. Continue compartilhando o cartaz, avisando pessoas próximas e atualizando informações sempre que possível. Muitas famílias e pets já foram reencontrados graças à divulgação rápida e ao apoio de outras pessoas.</p>
+                </div>
+            </section>
         </article>
         <section id="sobre-nos" class="hidden">
 
