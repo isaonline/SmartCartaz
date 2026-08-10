@@ -620,3 +620,72 @@ form > fieldset > label, #dados-pet > label {
 .card-divulgue > img {
     height: 211px;
 }
+
+/* Seção de Sobre Nós */
+
+#sobre-nos {
+    background-color: var(--background);
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    height: 100%;
+}
+
+#card-info-site {
+    margin: 24px;
+    width: 1052px;
+    height: 429px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    padding: 24px;
+    box-shadow: 0px 4px 5.5px 0px #00000026;
+    background-color: var(--white);
+    display: flex;
+    gap: 24px;
+}
+
+#info-site-conteudo {
+    width: 603px;
+    height: 381px;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+}
+
+#info-perfis {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.info-site-perfil {
+    display: flex;
+    align-items: center;
+    width: 293.5px;
+    height: 65px;
+    border-radius: 7px;
+    justify-content: space-between;
+    padding: 12px 16px;
+    border: 1px solid var(--border)
+}
+
+.icon-nome-cargo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link-linkedin {
+    height: 20px;
+    width: 20px;
+}
+
+#secao-orientacoes {
+    width: 1052px;
+    height: 280px;
+    border-radius: 8px;
+    padding: 24px;
+    background-color: var(--white);
+    border: 1px solid var(--border);
+    box-shadow: 0px 4px 5.5px 0px #00000026;
+}
