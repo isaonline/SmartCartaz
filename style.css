@@ -638,7 +638,7 @@ form > fieldset > label, #dados-pet > label {
     border-radius: 8px;
     border: 1px solid var(--border);
     padding: 24px;
-    box-shadow: 0px 4px 5.5px 0px #00000026;
+    box-shadow: 0px 4px 5.5px 0px #88888831;
     background-color: var(--white);
     display: flex;
     gap: 24px;
@@ -650,6 +650,14 @@ form > fieldset > label, #dados-pet > label {
     display: flex;
     flex-flow: column nowrap;
     gap: 16px;
+}
+
+#info-site-conteudo > p {
+    color: var(--subtext);
+}
+
+#info-site-conteudo > p > strong {
+    color: var(--content);
 }
 
 #info-perfis {
@@ -675,6 +683,10 @@ form > fieldset > label, #dados-pet > label {
     gap: 10px;
 }
 
+.perfil-cargo {
+    color: var(--subtext);
+}
+
 .link-linkedin {
     height: 20px;
     width: 20px;
@@ -687,5 +699,38 @@ form > fieldset > label, #dados-pet > label {
     padding: 24px;
     background-color: var(--white);
     border: 1px solid var(--border);
-    box-shadow: 0px 4px 5.5px 0px #00000026;
+    box-shadow: 0px 4px 5.5px 0px #88888831;
+}
+
+#secao-orientacoes > h2 {
+    margin-bottom: 24px;
+}
+
+#cards-orientacoes {
+    display: flex;
+    gap: 24px;
+}
+
+.icon-texto-orient {
+    display: flex;
+    flex-flow: column nowrap;
+    width: 233px;
+    height: 184px;
+}
+
+.icon-texto-orient > img {
+    max-width: 28px;
+    margin-bottom: 20px;
+}
+
+.icon-texto-orient > h4 {
+    margin-bottom: 12px;
+}
+
+.icon-texto-orient > p {
+    color: var(--subtext);
+}
+
+#sobre-nos > p {
+    margin-top: 40px;
 }
