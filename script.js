@@ -168,9 +168,9 @@ const preview = {
 
 // Espaço para guardar cada placeholder dos campos
 const placeholders = {
-    nome: "Nome da pessoa aqui",
+    nome: "Nome aqui",
     idade: "Idade aqui",
-    descricao: "A descrição do desaparecimento com detalhes aparecerá aqui, não esqueça de escrever características físicas marcantes da pessoa.",
+    descricao: "A descrição do desaparecimento com detalhes aparecerá aqui, não esqueça de escrever características físicas marcantes.",
     local: "Bairro, Cidade - Estado",
     data: "00/00/0000",
     telefone: "(11) 99999-9999",
@@ -461,6 +461,8 @@ buttonTrocarTipo.addEventListener('click', (event) => {
             inputsDadosPet.classList.add('hidden')
             racaPetPrevia.classList.add('hidden')
             corPetPrevia.classList.add('hidden')
+            document.querySelector('label[for="form-nome"]').textContent = 'Nome da pessoa'
+            document.querySelector('#form-nome').placeholder = 'Ex: Lucas Silva'
 
             break
         case 'button-pet':
@@ -476,6 +478,8 @@ buttonTrocarTipo.addEventListener('click', (event) => {
                 cartazImagem.src = '/src/img/Dog_facing_forward_soft_light.jpeg'
             }
             inputsDadosPet.classList.remove('hidden')
+            document.querySelector('label[for="form-nome"]').textContent = 'Nome do pet'
+            document.querySelector('#form-nome').placeholder = 'Ex: Rex'
             renderPreview()
 
             break
