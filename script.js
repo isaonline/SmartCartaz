@@ -92,9 +92,11 @@ formContainer.addEventListener('input', (event) => {
 })
 
 // Listener para especificamente a foto
-inputFoto.addEventListener('change', (event) => {
-    const arquivo = event.target.files[0]
-    if (!arquivo) return
+function processarArquivoFoto(arquivo) {
+    if (!['image/jpeg', 'image/png'].includes(arquivo.type)) {
+        alert('Por favor, envie apenas arquivos JPEG ou PNG.')
+        return
+    }
 
     if (fotoUrlAtual) {
         URL.revokeObjectURL(fotoUrlAtual)
@@ -103,21 +105,21 @@ inputFoto.addEventListener('change', (event) => {
     const urlTemporaria = URL.createObjectURL(arquivo)
     fotoUrlAtual = urlTemporaria
     const img = new Image()
-    
+
     img.onload = () => {
         const ehRetrato = img.height > img.width
         const cartaz = document.querySelector('#prev-cartaz')
-        
+
         if (ehRetrato) {
             preview.foto.style.height = '240px'
-            cartaz.style.gap = '2px'         // ← reduz o gap entre elementos
-            cartaz.style.padding = '8px 0'   // ← reduz o padding
+            cartaz.style.gap = '2px'
+            cartaz.style.padding = '8px 0'
         } else {
             preview.foto.style.height = '230px'
-            cartaz.style.gap = '8px'         // ← volta ao normal
+            cartaz.style.gap = '8px'
             cartaz.style.padding = '16px 0'
         }
-        
+
         preview.foto.src = urlTemporaria
         state.foto = true
         atualizarEstadoBotoesBaixar()
@@ -129,8 +131,51 @@ inputFoto.addEventListener('change', (event) => {
         container.classList.remove('hidden')
         areaEnviarFoto.classList.add('hidden')
     }
-    
+
     img.src = urlTemporaria
+}
+
+inputFoto.addEventListener('change', (event) => {
+    const arquivo = event.target.files[0]
+    if (!arquivo) return
+    processarArquivoFoto(arquivo)
+})
+
+let contadorArrastar = 0
+const overlayArrastar = document.querySelector('#overlay-arrastar-foto')
+
+window.addEventListener('dragenter', (event) => {
+    event.preventDefault()
+    if (!event.dataTransfer.types.includes('Files')) return
+    if (document.querySelector('#criar-cartaz').classList.contains('hidden')) return
+
+    contadorArrastar++
+    overlayArrastar.classList.remove('hidden')
+})
+
+window.addEventListener('dragleave', (event) => {
+    event.preventDefault()
+    contadorArrastar--
+    if (contadorArrastar <= 0) {
+        contadorArrastar = 0
+        overlayArrastar.classList.add('hidden')
+    }
+})
+
+window.addEventListener('dragover', (event) => {
+    event.preventDefault()
+})
+
+window.addEventListener('drop', (event) => {
+    event.preventDefault()
+    contadorArrastar = 0
+    overlayArrastar.classList.add('hidden')
+
+    if (document.querySelector('#criar-cartaz').classList.contains('hidden')) return
+
+    const arquivo = event.dataTransfer.files[0]
+    if (!arquivo) return
+    processarArquivoFoto(arquivo)
 })
 
 // Listener do botão para excluir a imagem

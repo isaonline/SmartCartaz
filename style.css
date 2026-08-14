@@ -324,10 +324,40 @@ form > fieldset > label,
   width: 32px;
   height: 32px;
   margin-right: 8px;
+  pointer-events: none;
 }
 
 #button-enviar-foto:hover {
   background-color: #e9f2ef;
+}
+
+#overlay-arrastar-foto {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+#overlay-conteudo {
+    background-color: var(--white);
+    border: 2px dashed var(--brand);
+    border-radius: 8px;
+    padding: 40px 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    text-align: center;
+}
+
+#overlay-conteudo > img {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 8px;
 }
 
 #preview-foto-input {
