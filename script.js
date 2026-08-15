@@ -9,6 +9,7 @@ const inputsDadosPet = document.querySelector('#dados-pet')
 const racaPetPrevia = document.querySelector('#cartaz-raca')
 const corPetPrevia = document.querySelector('#cartaz-cor')
 const camposObrigatorios = ['nome', 'idade', 'descricao', 'local', 'data', 'telefone', 'foto']
+const botaoMenuMobile = document.querySelector('#botao-menu-mobile')
 let fotoUrlAtual = null
 
 // Estado que vai ler cada informação colocada nos inputs
@@ -550,4 +551,41 @@ document.querySelector('nav > menu').addEventListener('click', (event) => {
     })
 })
 
+function mudarPagina(idAlvo) {
+    document.querySelectorAll('main > section, main > article').forEach(secao => {
+        secao.classList.toggle('hidden', secao.id !== idAlvo)
+    })
+
+    document.querySelectorAll('menu > button').forEach(botao => {
+        botao.classList.toggle('menu-button-active', botao.dataset.target === idAlvo)
+    })
+}
+
+document.querySelector('nav > menu').addEventListener('click', (event) => {
+    const botaoClicado = event.target.closest('button')
+    if (!botaoClicado) return
+    mudarPagina(botaoClicado.dataset.target)
+})
+
+document.querySelector('nav > img').addEventListener('click', () => {
+    mudarPagina('criar-cartaz')
+})
+
 atualizarEstadoBotoesBaixar()
+
+/* Responsividade em geral */
+
+const menuPaginas = document.querySelector('#menu-paginas')
+
+botaoMenuMobile.addEventListener('click', () => {
+    const abrindo = menuPaginas.classList.toggle('menu-aberto')
+    botaoMenuMobile.setAttribute('aria-expanded', abrindo)
+})
+
+document.addEventListener('click', (event) => {
+    const cliqueDentro = menuPaginas.contains(event.target) || botaoMenuMobile.contains(event.target)
+    if (!cliqueDentro && menuPaginas.classList.contains('menu-aberto')) {
+        menuPaginas.classList.remove('menu-aberto')
+        botaoMenuMobile.setAttribute('aria-expanded', 'false')
+    }
+})
