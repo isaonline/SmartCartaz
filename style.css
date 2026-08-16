@@ -81,6 +81,10 @@ button:focus-visible {
   outline-offset: 2px;
 }
 
+img {
+  -webkit-user-drag: none;
+}
+
 /* Menu */
 
 nav {
@@ -520,6 +524,7 @@ form > fieldset > label,
   height: 200px;
   object-fit: contain;
   object-position: center;
+  -webkit-user-drag: none;
 }
 
 #cartaz-nome {
@@ -1058,5 +1063,12 @@ form > fieldset > label,
   .icon-texto-orient {
     width: 100%;
     height: auto;
+  }
+
+  #espaco-cartaz-prev.captura-visivel {
+      display: flex !important;
+      position: fixed;
+      top: 0;
+      left: -9999px;
   }
 }

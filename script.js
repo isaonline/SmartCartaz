@@ -414,6 +414,14 @@ document.querySelector('#button-baixar-pdf').addEventListener('click', () => {
     baixarPDF()
 })
 
+function prepararPreviaParaCaptura() {
+    document.querySelector('#espaco-cartaz-prev').classList.add('captura-visivel')
+}
+
+function restaurarPreviaAposCaptura() {
+    document.querySelector('#espaco-cartaz-prev').classList.remove('captura-visivel')
+}
+
 async function prepararCartazParaCaptura() {
     const imgCartaz = document.querySelector('#cartaz-imagem')
     
@@ -459,10 +467,12 @@ function restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal }) {
 }
 
 async function baixarPNG() {
+    prepararPreviaParaCaptura()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarPreviaAposCaptura()
     
     const link = document.createElement('a')
     link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
@@ -471,10 +481,12 @@ async function baixarPNG() {
 }
 
 async function baixarPDF() {
+    prepararPreviaParaCaptura()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarPreviaAposCaptura()
     
     const imgData = canvas.toDataURL('image/png')
     const { jsPDF } = window.jspdf
@@ -573,4 +585,8 @@ document.addEventListener('click', (event) => {
         menuPaginas.classList.remove('menu-aberto')
         botaoMenuMobile.setAttribute('aria-expanded', 'false')
     }
+})
+
+document.querySelectorAll('img').forEach(img => {
+    img.draggable = false
 })
