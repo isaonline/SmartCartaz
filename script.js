@@ -590,3 +590,10 @@ document.addEventListener('click', (event) => {
 document.querySelectorAll('img').forEach(img => {
     img.draggable = false
 })
+
+let zoomAtual = 1
+
+function ajustarZoom(delta) {
+    zoomAtual = Math.min(1, Math.max(0.5, zoomAtual + delta))
+    document.querySelector('#prev-cartaz').style.setProperty('--zoom-cartaz', zoomAtual)
+}

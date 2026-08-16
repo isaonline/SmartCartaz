@@ -488,7 +488,7 @@ form > fieldset > label,
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  padding: 0 16px;
+  padding: 0px 16px 32px 16px;
 }
 
 #texto-prev {
@@ -656,16 +656,17 @@ form > fieldset > label,
 #cards-uso {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(5, 1fr);
+  grid-template-rows: none;
   gap: 20px;
   width: 1088px;
-  height: 829px;
+  height: auto;
   margin: 20px auto;
 }
 
 .card-tutorial {
   min-width: 350px;
-  min-height: 395px;
+  min-height: 0;
+  height: auto;
   border-radius: 8px;
   padding: 24px;
   background: var(--white);
@@ -700,15 +701,14 @@ form > fieldset > label,
   margin-top: 12px;
 }
 
-.card-baixe {
+.card-baixe,
+.card-divulgue {
+  height: auto;
   grid-row-start: 2;
-  height: 415px;
 }
 
 .card-divulgue {
   grid-column: span 2 / span 2;
-  grid-row-start: 2;
-  height: 415px;
 }
 
 .card-divulgue > img {
@@ -728,7 +728,7 @@ form > fieldset > label,
 #card-info-site {
   margin: 24px;
   width: 1052px;
-  height: 429px;
+  height: auto;
   border-radius: 8px;
   border: 1px solid var(--border);
   padding: 24px;
@@ -797,7 +797,7 @@ form > fieldset > label,
 
 #secao-orientacoes {
   width: 1052px;
-  height: 280px;
+  height: auto;
   border-radius: 8px;
   padding: 24px;
   background-color: var(--white);
@@ -818,7 +818,7 @@ form > fieldset > label,
   display: flex;
   flex-flow: column nowrap;
   width: 233px;
-  height: 184px;
+  height: auto; 
 }
 
 .icon-texto-orient > img {
@@ -943,9 +943,28 @@ form > fieldset > label,
   #sobre-nos > p {
       margin-top: 12px;
   }
+
+  #prev-cartaz {
+    transform: scale(var(--zoom-cartaz, 1));
+    transform-origin: top center;
+  }
 }
 
 @media (max-width: 1060px) {
+
+  #dados-form,
+  #como-usar,
+  #sobre-nos {
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+  }
+
+  #dados-form::-webkit-scrollbar,
+  #como-usar::-webkit-scrollbar,
+  #sobre-nos::-webkit-scrollbar {
+    display: none; 
+  }
+
   #botao-menu-mobile {
     display: flex;
     margin-left: auto;
