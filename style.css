@@ -32,8 +32,15 @@
 
 .title {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 24px;
+  letter-spacing: 0%;
+}
+
+.input {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
   letter-spacing: 0%;
 }
 
@@ -90,8 +97,9 @@ img {
 nav {
   display: flex;
   gap: 50px;
-  padding: 0 24px;
+  padding: 0 28px;
   width: 100%;
+  height: 64px;
   border-bottom: 1px solid var(--border);
   flex-shrink: 0;
   align-items: center;
@@ -99,6 +107,7 @@ nav {
 
 nav > img {
   cursor: pointer;
+  height: 32px;
 }
 
 menu {
@@ -110,7 +119,7 @@ menu > button {
   background-color: transparent;
   border: none;
   width: 140px;
-  height: 56px;
+  height: 64px;
   padding: 20px;
   transition: color 0.15s ease;
 }
@@ -134,12 +143,12 @@ menu > button {
 
 aside {
   flex-direction: column;
-  width: 487px;
-  min-width: 487px;
+  width: 500px;
+  min-width: 500px;
   height: 100%;
   flex-shrink: 0;
   display: flex;
-  padding: 24px;
+  padding: 28px;
   border-right: 1px solid var(--border);
 }
 
@@ -148,11 +157,6 @@ aside {
   min-height: 0;
   display: flex;
   flex-direction: column;
-}
-
-#conteudo-form > h2 {
-  color: var(--brand);
-  margin-bottom: 8px;
 }
 
 #conteudo-form > p {
@@ -179,7 +183,7 @@ label {
   height: 48px;
   border-radius: 6px;
   padding: 4px;
-  margin: 20px 0;
+  margin: 24px 0;
   gap: 10px;
   justify-content: center;
   align-items: center;
@@ -212,6 +216,7 @@ label {
 form > fieldset > input,
 form > fieldset > textarea,
 #dados-pet > input {
+  min-width: 0;
   transition:
     border-color 0.15s ease,
     background-color 0.15s ease;
@@ -220,22 +225,23 @@ form > fieldset > textarea,
 form > fieldset > input:hover,
 form > fieldset > textarea:hover,
 #dados-pet > input:hover {
-  border-color: var(--content);
+  border: 1.5px solid var(--content);
 }
 
 form > fieldset > input:focus,
 form > fieldset > textarea:focus,
 #dados-pet > input:focus {
-  border-color: var(--brand);
   outline: none;
+  border: 1.5px solid var(--brand);
 }
 
 #form-desc-desaparecimento:hover {
   border-color: var(--content);
+  border: 1.5px solid;
 }
 
 #form-desc-desaparecimento:focus {
-  border-color: var(--brand);
+  border: 1.5px solid var(--brand);
 }
 
 form > fieldset {
@@ -245,15 +251,20 @@ form > fieldset {
 
 form > fieldset > input,
 #dados-pet > input {
-  height: 40px;
+  height: 48px;
   border: 1px solid var(--input);
   border-radius: 4px;
   padding: 10px 12px;
+  font-size: 16px;
+}
+
+textarea {
+  font-size: 16px;
 }
 
 form > fieldset > label,
 #dados-pet > label {
-  margin: 16px 0 8px 0;
+  margin: 20px 0 8px 0;
 }
 
 #form-dados-desaparecido {
@@ -292,7 +303,7 @@ form > fieldset > label,
 #form-desc-desaparecimento {
   grid-column: span 2;
   height: 92px;
-  border: 1px solid var(--input);
+  border: 1.5px solid var(--input);
   border-radius: 4px;
   padding: 8px 12px;
   resize: none;
@@ -304,7 +315,7 @@ form > fieldset > label,
 
 #form-contato {
   display: grid;
-  grid: auto-flow / 1fr 1fr;
+  grid: auto-flow / 211.5fr 211.5fr;
   column-gap: 16px;
 }
 
@@ -434,7 +445,7 @@ form > fieldset > label,
 
 #buttons-baixar > button {
   width: 100%;
-  height: 44px;
+  height: 48px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -942,7 +953,7 @@ form > fieldset > label,
 
   nav {
     position: relative;
-    min-height: 40px;
+    min-height: 56px;
   }
 
   menu {

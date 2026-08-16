@@ -214,8 +214,8 @@ const preview = {
 
 // Espaço para guardar cada placeholder dos campos
 const placeholders = {
-    nome: "Nome aqui",
-    idade: "Idade aqui",
+    nome: "Nome",
+    idade: "Idade",
     descricao: "A descrição do desaparecimento com detalhes aparecerá aqui, não esqueça de escrever características físicas marcantes.",
     local: "Bairro, Cidade - Estado",
     data: "00/00/0000",
