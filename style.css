@@ -634,6 +634,7 @@ form > fieldset > label,
 
 #como-usar {
   background-color: var(--background);
+  height: 100%;
 }
 
 #cards-uso {
@@ -837,6 +838,95 @@ form > fieldset > label,
 #botao-menu-mobile > img {
   width: 24px;
   height: 24px;
+}
+
+@media (max-height: 900px) {
+  #espaco-cartaz-prev {
+    overflow-y: auto;
+    align-items: center;
+  }
+
+  #cards-uso {
+    height: auto;
+    grid-template-rows: none;
+    gap: 12px;
+    margin: 24px auto;
+  }
+
+  .card-tutorial {
+    min-height: 0;
+    padding: 16px;
+  }
+
+  .card-tutorial > img {
+    height: 100px;
+  }
+
+  .card-baixe,
+  .card-divulgue {
+    height: auto;
+  }
+
+  .card-divulgue > img {
+    height: 120px;
+  }
+
+  #como-usar {
+    overflow-y: auto;
+  }
+
+  #sobre-nos {
+    overflow-y: auto;
+  }
+
+  #card-info-site {
+    height: auto;
+    margin: 12px;
+    padding: 16px;
+    gap: 16px; 
+  }
+
+  #card-info-site > img {
+      max-width: 220px;
+      align-self: flex-start;
+  }
+
+  #info-site-conteudo {
+    height: auto;
+    width: auto;
+    flex: 1;
+    gap: 8px;
+  }
+
+  #info-perfis {
+      gap: 8px;
+  }
+
+  .info-site-perfil {
+      height: auto;
+      padding: 8px 12px;
+  }
+
+  #secao-orientacoes {
+    height: auto;
+    padding: 16px;
+  }
+
+  .icon-texto-orient {
+    height: auto;
+  }
+
+  .icon-texto-orient > img {
+    margin-bottom: 8px;
+  }
+
+  .icon-texto-orient > h4 {
+      margin-bottom: 6px;
+  }
+
+  #sobre-nos > p {
+      margin-top: 12px;
+  }
 }
 
 @media (max-width: 1060px) {
