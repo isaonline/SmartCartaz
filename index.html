@@ -12,6 +12,10 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crie cartazes de pessoas ou pets desaparecidos gratuitamente, com foto, dados de contato e recompensa. Baixe em PNG ou PDF pra imprimir e compartilhar.">
+    <meta property="og:title" content="SmartCartaz — Cartazes de pessoas e pets desaparecidos">
+    <meta property="og:description" content="Crie e baixe cartazes de desaparecidos gratuitamente, com foto, contato e recompensa.">
+    <meta property="og:image" content="https://smartcartaz.com.br/src/img/logo-smartcartaz.svg">
     <title>SmartCartaz</title>
     <link rel="shortcut icon" href="/src/favicon.svg" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
@@ -61,10 +65,10 @@
                             <input type="text" name="form-cor" id="form-cor" placeholder="Ex: Laranja" data-field="cor" maxlength="20"></span>
                         </fieldset>
                         <fieldset id="form-detalhes">
-                            <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes</h3></div>
-                            <label class="input" for="form-desc-desaparecimento">Descrição do desaparecimento</label>
-                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu dia 12, por volta das 16h no centro da cidade." data-field="descricao" maxlength="200"></textarea>
-                            <label class="input" for="form-local">Local do desaparecimento</label>
+                            <div class="titulo-fieldset"><img src="src/img/info-fill.svg" alt="Ícone de informação"><h3 class="label">2. Detalhes do desaparecimento</h3></div>
+                            <label class="input" for="form-desc-desaparecimento">Descrição</label>
+                            <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu próximo ao hospital, no centro, por volta das 12h." data-field="descricao" maxlength="200"></textarea>
+                            <label class="input" for="form-local">Local</label>
                             <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" data-field="local" maxlength="32">
                             <label class="input" for="form-data">Data</label>
                             <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" data-field="data">
@@ -92,12 +96,28 @@
                     </form>
                 </div>
                 <div id="buttons-baixar">
-                    <button id="button-baixar-png" type="button"><img src="src/img/download-green.svg" alt="Ícone de Download"><p class="label">Baixar PNG</p></button>
-                    <button id="button-baixar-pdf" type="button"><img src="src/img/download-white.svg" alt="Ícone de Download"><p class="label">Baixar PDF</p></button>
+                    <button id="button-baixar-png" type="button">
+                    <img src="src/img/download-green.svg" alt="Ícone de Download">
+                    <span class="spinner-baixar"></span>
+                    <p class="label">Baixar PNG</p>
+                </button>
+                <button id="button-baixar-pdf" type="button">
+                    <img src="src/img/download-white.svg" alt="Ícone de Download">
+                    <span class="spinner-baixar"></span>
+                    <p class="label">Baixar PDF</p>
+                </button>
                 </div>
             </aside>
             <div id="espaco-cartaz-prev">
                 <p id="texto-prev" class="title">Pré-Visualização do cartaz</p>
+
+                <div id="controle-zoom">
+                    <span class="caption">Ajustar zoom:</span>
+                    <button type="button" id="botao-zoom-menos" aria-label="Diminuir zoom">−</button>
+                    <span id="texto-zoom-atual" class="caption" aria-live="polite">100%</span>
+                    <button type="button" id="botao-zoom-mais" aria-label="Aumentar zoom">+</button>
+                </div>
+
                 <div id="prev-cartaz">
                     <h3 id="cartaz-titulo" class="fundo-vermelho-cartaz">DESAPARECIDO</h3>
                     <img id="cartaz-imagem" src="/src/img/Person_facing_forward_soft_light.jpeg" alt="Imagem da pessoa desaparecida" draggable="false">
@@ -169,7 +189,7 @@
                 <img src="/src/img/family-reunion.png" alt="A imagem mostra uma família se abraçando do lado esquerdo, enquanto do lado direito uma mulher abraça um cachorro">
                 <section id="info-site-conteudo">
                     <h2 class="title">Ajudando a Reunir Famílias &#128151;</h2>
-                    <p class="text">Este site nasceu como um projeto independente com o objetivo de ajudar pessoas a criarem cartazes de desaparecimento de forma rápida, simples e acessível, tanto para pessoas quanto para animais de estimação.
+                    <p class="text">Este site nasceu como um projeto independente, com o objetivo de ajudar na criação de cartazes de desaparecimento de forma rápida, simples e acessível, tanto para pessoas quanto para animais de estimação.
                     <br><br>
                     Inicialmente, a ideia era que ele fosse apenas um projeto de estudo e desenvolvimento, mas decidimos mantê-lo no ar por acreditar que a ferramenta pode ajudar alguém em um momento difícil. Não possuímos vínculo com órgãos públicos, ONGs ou instituições oficiais.
                     <br><br>

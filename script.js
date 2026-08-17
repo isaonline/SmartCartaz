@@ -398,21 +398,61 @@ function atualizarEstadoBotoesBaixar() {
     botaoPdf.classList.toggle('botao-baixar-invalido', !valido)
 }
 
-document.querySelector('#button-baixar-png').addEventListener('click', () => {
+function iniciarCarregamentoBotao(botao) {
+    botao.disabled = true
+    botao.classList.add('botao-carregando')
+}
+
+function pararCarregamentoBotao(botao) {
+    botao.disabled = false
+    botao.classList.remove('botao-carregando')
+}
+
+document.querySelector('#button-baixar-png').addEventListener('click', async () => {
     if (!validarCampos()) {
         alert('Preencha todos os campos obrigatórios antes de baixar: foto, nome, idade, descrição, local, data e telefone.')
         return
     }
-    baixarPNG()
+
+    const botaoPng = document.querySelector('#button-baixar-png')
+    const botaoPdf = document.querySelector('#button-baixar-pdf')
+    iniciarCarregamentoBotao(botaoPng)
+    botaoPdf.disabled = true
+
+    try {
+        await baixarPNG()
+    } finally {
+        pararCarregamentoBotao(botaoPng)
+        botaoPdf.disabled = false
+    }
 })
 
-document.querySelector('#button-baixar-pdf').addEventListener('click', () => {
+document.querySelector('#button-baixar-pdf').addEventListener('click', async () => {
     if (!validarCampos()) {
         alert('Preencha todos os campos obrigatórios antes de baixar: foto, nome, idade, descrição, local, data e telefone.')
         return
     }
-    baixarPDF()
+
+    const botaoPng = document.querySelector('#button-baixar-png')
+    const botaoPdf = document.querySelector('#button-baixar-pdf')
+    iniciarCarregamentoBotao(botaoPdf)
+    botaoPng.disabled = true
+
+    try {
+        await baixarPDF()
+    } finally {
+        pararCarregamentoBotao(botaoPdf)
+        botaoPng.disabled = false
+    }
 })
+
+function prepararZoomParaCaptura() {
+    document.querySelector('#prev-cartaz').style.setProperty('--zoom-cartaz', 1)
+}
+
+function restaurarZoomAposCaptura() {
+    document.querySelector('#prev-cartaz').style.setProperty('--zoom-cartaz', zoomAtual)
+}
 
 function prepararPreviaParaCaptura() {
     document.querySelector('#espaco-cartaz-prev').classList.add('captura-visivel')
@@ -468,10 +508,12 @@ function restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal }) {
 
 async function baixarPNG() {
     prepararPreviaParaCaptura()
+    prepararZoomParaCaptura()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarZoomAposCaptura()
     restaurarPreviaAposCaptura()
     
     const link = document.createElement('a')
@@ -482,10 +524,12 @@ async function baixarPNG() {
 
 async function baixarPDF() {
     prepararPreviaParaCaptura()
+    prepararZoomParaCaptura()
     const { imgCartaz, srcOriginal, alturaOriginal } = await prepararCartazParaCaptura()
     const cartaz = document.querySelector('#prev-cartaz')
     const canvas = await html2canvas(cartaz, { scale: 2, useCORS: true })
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
+    restaurarZoomAposCaptura()
     restaurarPreviaAposCaptura()
     
     const imgData = canvas.toDataURL('image/png')
@@ -594,6 +638,14 @@ document.querySelectorAll('img').forEach(img => {
 let zoomAtual = 1
 
 function ajustarZoom(delta) {
-    zoomAtual = Math.min(1, Math.max(0.5, zoomAtual + delta))
+    zoomAtual = Math.min(1, Math.max(0.5, +(zoomAtual + delta).toFixed(2)))
     document.querySelector('#prev-cartaz').style.setProperty('--zoom-cartaz', zoomAtual)
+    document.querySelector('#texto-zoom-atual').textContent = Math.round(zoomAtual * 100) + '%'
+    document.querySelector('#botao-zoom-menos').disabled = zoomAtual <= 0.5
+    document.querySelector('#botao-zoom-mais').disabled = zoomAtual >= 1
 }
+
+document.querySelector('#botao-zoom-menos').addEventListener('click', () => ajustarZoom(-0.1))
+document.querySelector('#botao-zoom-mais').addEventListener('click', () => ajustarZoom(0.1))
+
+ajustarZoom(0)

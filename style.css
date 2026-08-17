@@ -225,23 +225,22 @@ form > fieldset > textarea,
 form > fieldset > input:hover,
 form > fieldset > textarea:hover,
 #dados-pet > input:hover {
-  border: 1.5px solid var(--content);
+  border: 2px solid var(--content);
 }
 
 form > fieldset > input:focus,
 form > fieldset > textarea:focus,
 #dados-pet > input:focus {
   outline: none;
-  border: 1.5px solid var(--brand);
+  border: 2px solid var(--brand);
 }
 
 #form-desc-desaparecimento:hover {
-  border-color: var(--content);
-  border: 1.5px solid;
+  border: 2px solid var(--content);
 }
 
 #form-desc-desaparecimento:focus {
-  border: 1.5px solid var(--brand);
+  border: 2px solid var(--brand);
 }
 
 form > fieldset {
@@ -474,6 +473,35 @@ form > fieldset > label,
   color: var(--white);
 }
 
+.spinner-baixar {
+  display: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: girar 0.6s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.botao-carregando > img {
+  display: none;
+}
+
+.botao-carregando > .spinner-baixar {
+  display: inline-block;
+}
+
+#buttons-baixar > button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 /* Pré-visualização */
 
 #criar-cartaz {
@@ -494,6 +522,44 @@ form > fieldset > label,
 #texto-prev {
   color: var(--brand);
   margin: 16px;
+}
+
+#controle-zoom {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+#controle-zoom > button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid var(--brand);
+  background-color: var(--white);
+  color: var(--brand);
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+#controle-zoom > button:hover {
+  background-color: var(--brand);
+  color: var(--white);
+}
+
+#controle-zoom > button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#texto-zoom-atual {
+  min-width: 40px;
+  text-align: center;
+  color: var(--subtext);
 }
 
 #prev-cartaz,
@@ -857,6 +923,11 @@ form > fieldset > label,
 }
 
 @media (max-height: 900px) {
+
+  #controle-zoom {
+    display: flex;
+  }
+
   #espaco-cartaz-prev {
     overflow-y: auto;
     align-items: center;
@@ -973,6 +1044,7 @@ form > fieldset > label,
   nav {
     position: relative;
     min-height: 56px;
+    padding: 0px 24px;
   }
 
   menu {
@@ -1010,12 +1082,7 @@ form > fieldset > label,
     width: 100%;
     min-width: 0;
     border-right: none;
-  }
-
-  form > fieldset > input,
-  form > fieldset > textarea,
-  #dados-pet > input {
-    min-width: 0;
+    padding: 28px 20px;
   }
 
   #como-usar {
@@ -1060,6 +1127,7 @@ form > fieldset > label,
     width: 100%;
     height: auto;
     margin: 24px 0;
+    padding: 24px;
   }
 
   #card-info-site > img {
@@ -1082,12 +1150,14 @@ form > fieldset > label,
   }
 
   #secao-orientacoes {
+    padding: 24px;
     width: 100%;
     height: auto;
   }
 
   #cards-orientacoes {
     flex-direction: column;
+    gap: 24px;
   }
 
   .icon-texto-orient {
@@ -1095,10 +1165,29 @@ form > fieldset > label,
     height: auto;
   }
 
+  .icon-texto-orient > img {
+    margin-bottom: 20px;
+  }
+
+  .icon-texto-orient > h4 {
+    margin-bottom: 12px;
+  }
+
   #espaco-cartaz-prev.captura-visivel {
       display: flex !important;
       position: fixed;
       top: 0;
       left: -9999px;
+  }
+
+  #form-detalhes label[for="form-local"],
+  #form-local,
+  #form-detalhes label[for="form-data"],
+  #form-data {
+    grid-column: span 2;
+  }
+
+  #form-local {
+    grid-row: auto;
   }
 }
