@@ -8,9 +8,17 @@ const buttonTrocarTipo = document.querySelector("#buttons-trocar-tipo")
 const inputsDadosPet = document.querySelector('#dados-pet')
 const racaPetPrevia = document.querySelector('#cartaz-raca')
 const corPetPrevia = document.querySelector('#cartaz-cor')
-const camposObrigatorios = ['nome', 'idade', 'descricao', 'local', 'data', 'telefone', 'foto']
 const botaoMenuMobile = document.querySelector('#botao-menu-mobile')
 let fotoUrlAtual = null
+let tipoAtual = 'pessoa'
+
+function obterCamposObrigatorios() {
+    const campos = ['nome', 'descricao', 'local', 'data', 'telefone', 'foto']
+    if (tipoAtual === 'pessoa') {
+        campos.push('idade')
+    }
+    return campos
+}
 
 // Estado que vai ler cada informação colocada nos inputs
 const state = {}
@@ -288,6 +296,40 @@ function ajustarFontesCartaz() {
         cloneTitulo.style.fontSize = tamanhoTitulo + 'px'
     }
 
+    const contaComoPreenchido = state.nome && state.descricao
+
+    const tamanhoNomeBase = tamanhoNome
+    const tamanhoDescBase = tamanhoDesc
+    const tamanhoTelBase = tamanhoTel
+    const tamanhoTituloBase = tamanhoTitulo
+    const tamanhoFraseBase = tamanhoFrase
+    const tamanhoValorBase = tamanhoValor
+    const tamanhoDadosBasicosBase = tamanhoDadosBasicos
+
+    let escala = 1
+
+    while (contaComoPreenchido && clone.scrollHeight < alturaMaxima - 24 && escala < 1.3) {
+        escala += 0.02
+
+        tamanhoNome = tamanhoNomeBase * escala
+        tamanhoDesc = tamanhoDescBase * escala
+        tamanhoTel = tamanhoTelBase * escala
+        tamanhoTitulo = tamanhoTituloBase * escala
+        tamanhoFrase = tamanhoFraseBase * escala
+        tamanhoValor = tamanhoValorBase * escala
+        tamanhoDadosBasicos = tamanhoDadosBasicosBase * escala
+
+        cloneIdade.style.fontSize = tamanhoDadosBasicos + 'px'
+        cloneRaca.style.fontSize = tamanhoDadosBasicos + 'px'
+        cloneCor.style.fontSize = tamanhoDadosBasicos + 'px'
+        cloneValor.style.fontSize = tamanhoValor + 'px'
+        cloneFrase.style.fontSize = tamanhoFrase + 'px'
+        cloneNome.style.fontSize = tamanhoNome + 'px'
+        cloneDesc.style.fontSize = tamanhoDesc + 'px'
+        cloneTel.style.fontSize = tamanhoTel + 'px'
+        cloneTitulo.style.fontSize = tamanhoTitulo + 'px'
+    }
+
     preview.nome.style.fontSize = tamanhoNome + 'px'
     preview.descricao.style.fontSize = tamanhoDesc + 'px'
     preview.telefone.style.fontSize = tamanhoTel + 'px'
@@ -323,13 +365,14 @@ function renderPreview() {
             if (campo === 'raca' || campo === 'cor') continue
 
             if (campo === 'idade') {
-                preview[campo].textContent = state[campo] 
-                ? `${state[campo]} anos` 
-                : placeholders[campo]
+                if (tipoAtual === 'pessoa' || state[campo]) {
+                    preview[campo].textContent = state[campo] ? `${state[campo]} anos` : placeholders[campo]
+                    preview[campo].classList.remove('hidden')
+                } else {
+                    preview[campo].classList.add('hidden')
+                }
             } else if (campo === 'data') {
-                if (!state[campo]) continue
-                const [ano, mes, dia] = state[campo].split('-')
-                preview[campo].textContent = `${dia}/${mes}/${ano}`
+                preview[campo].textContent = state[campo] ? formatarDataExibicao(state[campo]) : placeholders[campo]
             } else {
                 preview[campo].textContent = state[campo] || placeholders[campo]
             }
@@ -382,10 +425,19 @@ function formatarRecompensa(valorEmCentavos) {
         maximumFractionDigits: 2
     })
 }
+
+// Formatar data
+
+function formatarDataExibicao(dataISO) {
+    const [ano, mes, dia] = dataISO.split('-')
+    return `${dia}/${mes}/${ano}`
+}
+
+
 // Funcionalidade dos botões de Baixar PNG e PDF
 
 function validarCampos() {
-    const camposFaltando = camposObrigatorios.filter(campo => !state[campo])
+    const camposFaltando = obterCamposObrigatorios().filter(campo => !state[campo])
     return camposFaltando.length === 0
 }
 
@@ -549,6 +601,8 @@ buttonTrocarTipo.addEventListener('click', (event) => {
 
     switch (botaoClicado.id) {
         case 'button-pessoa':
+            tipoAtual = 'pessoa'
+            document.querySelector('label[for="form-idade"]').textContent = 'Idade'
             const buttonPet = botaoClicado.nextElementSibling
             const imgIconeAtualPessoa = botaoClicado.querySelector('img')
             const imgIconePet = buttonPet.querySelector('img')
@@ -568,6 +622,8 @@ buttonTrocarTipo.addEventListener('click', (event) => {
 
             break
         case 'button-pet':
+            tipoAtual = 'pet'
+            document.querySelector('label[for="form-idade"]').textContent = 'Idade (opcional)'
             const buttonPessoa = botaoClicado.previousElementSibling
             const imgIconeAtualPet = botaoClicado.querySelector('img')
             const imgIconePessoa = buttonPessoa.querySelector('img')
@@ -613,6 +669,8 @@ document.querySelector('nav > img').addEventListener('click', () => {
 })
 
 atualizarEstadoBotoesBaixar()
+
+document.querySelector('#form-data').max = new Date().toISOString().split('T')[0]
 
 /* Responsividade em geral */
 

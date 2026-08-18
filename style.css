@@ -1074,6 +1074,11 @@ form > fieldset > label,
     padding: 12px 24px;
   }
 
+  #form-data {
+    width: 100%;
+    height: 40px;
+  }
+
   #espaco-cartaz-prev {
     display: none;
   }
