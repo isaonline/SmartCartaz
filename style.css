@@ -169,6 +169,8 @@ aside {
   overflow-y: auto;
   overflow-x: hidden;
   padding-right: 8px;
+  padding-left: 4px;
+  margin-left: -4px;
 }
 
 button,
@@ -217,30 +219,25 @@ form > fieldset > input,
 form > fieldset > textarea,
 #dados-pet > input {
   min-width: 0;
+  outline: 1px solid transparent;
+  outline-offset: 0;
   transition:
     border-color 0.15s ease,
     background-color 0.15s ease;
 }
 
 form > fieldset > input:hover,
-form > fieldset > textarea:hover,
+#form-desc-desaparecimento:hover,
 #dados-pet > input:hover {
-  border: 2px solid var(--content);
+  border-color: var(--content);
+  outline-color: var(--content);
 }
 
 form > fieldset > input:focus,
-form > fieldset > textarea:focus,
+#form-desc-desaparecimento:focus,
 #dados-pet > input:focus {
-  outline: none;
-  border: 2px solid var(--brand);
-}
-
-#form-desc-desaparecimento:hover {
-  border: 2px solid var(--content);
-}
-
-#form-desc-desaparecimento:focus {
-  border: 2px solid var(--brand);
+  outline-color: var(--brand);
+  border-color: var(--brand);
 }
 
 form > fieldset {
@@ -302,7 +299,7 @@ form > fieldset > label,
 #form-desc-desaparecimento {
   grid-column: span 2;
   height: 92px;
-  border: 1.5px solid var(--input);
+  border: 1px solid var(--input);
   border-radius: 4px;
   padding: 8px 12px;
   resize: none;
@@ -675,6 +672,7 @@ form > fieldset > label,
   align-items: center;
   gap: 16px;
   width: 85%;
+  overflow: hidden;
 }
 
 #cartaz-telefone > img {
@@ -684,6 +682,7 @@ form > fieldset > label,
 #cartaz-tel-escolhido {
   font-size: 40px;
   font-weight: 900;
+  white-space: nowrap;
 }
 
 #cartaz-entre-em-contato {
@@ -699,6 +698,9 @@ form > fieldset > label,
   font-size: 30px;
   font-weight: 600;
   display: inline;
+  max-width: 85%;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 #cartaz-frase {
@@ -717,6 +719,7 @@ form > fieldset > label,
 #como-usar {
   background-color: var(--background);
   height: 100%;
+  overflow-y: auto;
 }
 
 #cards-uso {
@@ -724,7 +727,8 @@ form > fieldset > label,
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: none;
   gap: 20px;
-  width: 1088px;
+  width: 100%;
+  max-width: 1088px; 
   height: auto;
   margin: 20px auto;
 }
@@ -789,10 +793,13 @@ form > fieldset > label,
   flex-flow: column nowrap;
   align-items: center;
   height: 100%;
+  overflow-y: auto;
+  padding: 24px;
 }
 
 #card-info-site {
-  margin: 24px;
+  width: 100%;
+  max-width: 1052px;
   width: 1052px;
   height: auto;
   border-radius: 8px;
@@ -809,8 +816,9 @@ form > fieldset > label,
 }
 
 #info-site-conteudo {
-  width: 603px;
-  height: 381px;
+  flex: 1;
+  min-width: 0; 
+  height: auto;
   display: flex;
   flex-flow: column nowrap;
   gap: 16px;
@@ -833,8 +841,10 @@ form > fieldset > label,
 .info-site-perfil {
   display: flex;
   align-items: center;
-  width: 293.5px;
-  height: 65px;
+  flex: 1;
+  min-width: 0;
+  height: auto;
+  min-height: 65px;
   border-radius: 7px;
   justify-content: space-between;
   padding: 12px 16px;
@@ -862,10 +872,12 @@ form > fieldset > label,
 }
 
 #secao-orientacoes {
-  width: 1052px;
+  width: 100%;
+  max-width: 1052px;
   height: auto;
   border-radius: 8px;
   padding: 24px;
+  margin-top: 24px;
   background-color: var(--white);
   border: 1px solid var(--border);
   box-shadow: 0px 4px 5.5px 0px #88888831;
@@ -933,86 +945,12 @@ form > fieldset > label,
     align-items: center;
   }
 
-  #cards-uso {
-    height: auto;
-    grid-template-rows: none;
-    gap: 12px;
-    margin: 24px auto;
-  }
-
-  .card-tutorial {
-    min-height: 0;
-    padding: 16px;
-  }
-
-  .card-tutorial > img {
-    height: 100px;
-  }
-
-  .card-baixe,
-  .card-divulgue {
-    height: auto;
-  }
-
-  .card-divulgue > img {
-    height: 120px;
-  }
-
   #como-usar {
     overflow-y: auto;
   }
 
   #sobre-nos {
     overflow-y: auto;
-  }
-
-  #card-info-site {
-    height: auto;
-    margin: 12px;
-    padding: 16px;
-    gap: 16px; 
-  }
-
-  #card-info-site > img {
-      max-width: 220px;
-      align-self: flex-start;
-  }
-
-  #info-site-conteudo {
-    height: auto;
-    width: auto;
-    flex: 1;
-    gap: 8px;
-  }
-
-  #info-perfis {
-      gap: 8px;
-  }
-
-  .info-site-perfil {
-      height: auto;
-      padding: 8px 12px;
-  }
-
-  #secao-orientacoes {
-    height: auto;
-    padding: 16px;
-  }
-
-  .icon-texto-orient {
-    height: auto;
-  }
-
-  .icon-texto-orient > img {
-    margin-bottom: 8px;
-  }
-
-  .icon-texto-orient > h4 {
-      margin-bottom: 6px;
-  }
-
-  #sobre-nos > p {
-      margin-top: 12px;
   }
 
   #prev-cartaz {
@@ -1076,7 +1014,7 @@ form > fieldset > label,
 
   #form-data {
     width: 100%;
-    height: 40px;
+    height: 48px;
   }
 
   #espaco-cartaz-prev {
@@ -1087,7 +1025,7 @@ form > fieldset > label,
     width: 100%;
     min-width: 0;
     border-right: none;
-    padding: 28px 20px;
+    padding: 28px 20px 16px 20px;
   }
 
   #como-usar {
@@ -1124,14 +1062,12 @@ form > fieldset > label,
 
   #sobre-nos {
     overflow-y: auto;
-    padding: 0 24px 24px 24px;
   }
 
   #card-info-site {
     flex-direction: column;
     width: 100%;
     height: auto;
-    margin: 24px 0;
     padding: 24px;
   }
 

@@ -4,21 +4,34 @@
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9W8L1FP617"></script>
     <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-    gtag('config', 'G-9W8L1FP617');
+        gtag('config', 'G-9W8L1FP617');
     </script>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Crie cartazes de pessoas ou pets desaparecidos gratuitamente, com foto, dados de contato e recompensa. Baixe em PNG ou PDF pra imprimir e compartilhar.">
-    <meta property="og:title" content="SmartCartaz — Cartazes de pessoas e pets desaparecidos">
-    <meta property="og:description" content="Crie e baixe cartazes de desaparecidos gratuitamente, com foto, contato e recompensa.">
+
+    <title>SmartCartaz — Crie cartazes de desaparecidos grátis</title>
+
+    <meta name="description" content="Crie cartazes de pessoas ou pets desaparecidos gratuitamente. Adicione foto, contato e recompensa e baixe em PNG ou PDF para imprimir e compartilhar.">
+
+    <link rel="canonical" href="https://smartcartaz.com.br/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartcartaz.com.br/">
+    <meta property="og:title" content="SmartCartaz — Crie cartazes de desaparecidos grátis">
+    <meta property="og:description" content="Crie cartazes de pessoas ou pets desaparecidos gratuitamente. Adicione foto, contato e recompensa e baixe em PNG ou PDF.">
     <meta property="og:image" content="https://smartcartaz.com.br/src/img/logo-smartcartaz.svg">
-    <title>SmartCartaz</title>
-    <link rel="icon" href="/src/favicon.svg" type="image/svg+xml">
+    <meta property="og:site_name" content="SmartCartaz">
+    <meta property="og:locale" content="pt_BR">
+
+    <link rel="shortcut icon" href="/src/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="style.css">
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://unpkg.com/jspdf@4.2.1/dist/jspdf.umd.min.js"></script>
     <script src="/script.js" defer></script>
@@ -26,7 +39,7 @@
 <body>
     <div id="overlay-arrastar-foto" class="hidden">
         <div id="overlay-conteudo">
-            <img src="src/img/image-fill.svg" alt="Ícone de foto">
+            <img src="src/img/image-plus-icon.svg" alt="Ícone de foto">
             <p class="title">Solte a imagem aqui</p>
             <p class="text">Formatos aceitos: JPEG ou PNG</p>
         </div>
@@ -69,7 +82,7 @@
                             <label class="input" for="form-desc-desaparecimento">Descrição</label>
                             <textarea name="form-desc-desaparecimento" id="form-desc-desaparecimento" placeholder="Ex: Ele desapareceu próximo ao hospital, no centro, por volta das 12h." data-field="descricao" maxlength="200"></textarea>
                             <label class="input" for="form-local">Local</label>
-                            <input type="text" name="form-local" id="form-local" placeholder="Ex: Centro de São Paulo" data-field="local" maxlength="32">
+                            <input type="text" name="form-local" id="form-local" placeholder="Ex: São Paulo - SP" data-field="local" maxlength="32">
                             <label class="input" for="form-data">Data</label>
                             <input type="date" name="form-data" id="form-data" placeholder="Ex: 12/12/2025" data-field="data">
                         </fieldset>
@@ -84,7 +97,7 @@
                         <fieldset id="form-foto">
                             <div class="titulo-fieldset"><img src="src/img/image-fill.svg" alt="Ícone de foto"><h3 class="label">4. Foto</h3></div>
                             <label class="text" for="form-enviar-foto" id="button-enviar-foto">
-                                <img src="src/img/image-fill.svg" alt="Ícone de foto">
+                                <img src="src/img/image-plus-icon.svg" alt="Ícone de foto">
                             Clique para enviar a foto ou arraste aqui
                             </label>
                             <div id="container-preview-foto" class="hidden">

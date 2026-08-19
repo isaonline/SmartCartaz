@@ -4,6 +4,7 @@ const cartazImagem = document.querySelector('#cartaz-imagem')
 const cartazFrase = document.querySelector('#cartaz-frase')
 const cartazValor = document.querySelector('#cartaz-valor')
 const cartazTitulo = document.querySelector('#cartaz-titulo')
+const cartazDadosBasicos = document.querySelector('#cartaz-dados-basicos')
 const buttonTrocarTipo = document.querySelector("#buttons-trocar-tipo")
 const inputsDadosPet = document.querySelector('#dados-pet')
 const racaPetPrevia = document.querySelector('#cartaz-raca')
@@ -250,6 +251,7 @@ function ajustarFontesCartaz() {
 
     const cloneNome = clone.querySelector('#cartaz-nome')
     const cloneDesc = clone.querySelector('#cartaz-desc')
+    const cloneTelefone = clone.querySelector('#cartaz-telefone')
     const cloneTel = clone.querySelector('#cartaz-tel-escolhido')
     const cloneTitulo = clone.querySelector('#cartaz-titulo')
     const cloneFrase = clone.querySelector('#cartaz-frase')
@@ -257,6 +259,12 @@ function ajustarFontesCartaz() {
     const cloneIdade = clone.querySelector('#cartaz-idade')
     const cloneRaca = clone.querySelector('#cartaz-raca')
     const cloneCor = clone.querySelector('#cartaz-cor')
+
+    function algumTextoEstourouLargura() {
+        return cloneTelefone.scrollWidth > cloneTelefone.clientWidth ||
+            cloneFrase.scrollWidth > cloneFrase.clientWidth ||
+            cloneValor.scrollWidth > cloneValor.clientWidth
+    }
 
     cloneFrase.style.fontSize = '24px'
     cloneValor.style.fontSize = '30px'
@@ -276,7 +284,7 @@ function ajustarFontesCartaz() {
     let tamanhoTitulo = 60
     let tamanhoDadosBasicos = 16
 
-    while (clone.scrollHeight > alturaMaxima && tamanhoNome > 16) {
+    while ((clone.scrollHeight > alturaMaxima || algumTextoEstourouLargura()) && tamanhoNome > 16) {
         tamanhoNome -= 0.5    
         tamanhoDesc = Math.max(16, tamanhoDesc - 0.3)  
         tamanhoTel = Math.max(35, tamanhoTel - 1.5)     
@@ -308,13 +316,19 @@ function ajustarFontesCartaz() {
 
     let escala = 1
 
-    while (contaComoPreenchido && clone.scrollHeight < alturaMaxima - 24 && escala < 1.3) {
+    while (contaComoPreenchido && escala < 1.3) {
+        const tamanhoNomeAnterior = tamanhoNome
+        const tamanhoDescAnterior = tamanhoDesc
+        const tamanhoTelAnterior = tamanhoTel
+        const tamanhoFraseAnterior = tamanhoFrase
+        const tamanhoValorAnterior = tamanhoValor
+        const tamanhoDadosBasicosAnterior = tamanhoDadosBasicos
+
         escala += 0.02
 
         tamanhoNome = tamanhoNomeBase * escala
         tamanhoDesc = tamanhoDescBase * escala
         tamanhoTel = tamanhoTelBase * escala
-        tamanhoTitulo = tamanhoTituloBase * escala
         tamanhoFrase = tamanhoFraseBase * escala
         tamanhoValor = tamanhoValorBase * escala
         tamanhoDadosBasicos = tamanhoDadosBasicosBase * escala
@@ -328,6 +342,16 @@ function ajustarFontesCartaz() {
         cloneDesc.style.fontSize = tamanhoDesc + 'px'
         cloneTel.style.fontSize = tamanhoTel + 'px'
         cloneTitulo.style.fontSize = tamanhoTitulo + 'px'
+
+        if (clone.scrollHeight >= alturaMaxima - 24 || algumTextoEstourouLargura()) {
+            tamanhoNome = tamanhoNomeAnterior
+            tamanhoDesc = tamanhoDescAnterior
+            tamanhoTel = tamanhoTelAnterior
+            tamanhoFrase = tamanhoFraseAnterior
+            tamanhoValor = tamanhoValorAnterior
+            tamanhoDadosBasicos = tamanhoDadosBasicosAnterior
+            break
+        }
     }
 
     preview.nome.style.fontSize = tamanhoNome + 'px'
@@ -391,6 +415,11 @@ function renderPreview() {
         } else {
             preview.cor.classList.add('hidden')
         }
+
+        const nenhumDadoBasico = preview.idade.classList.contains('hidden') &&
+            preview.raca.classList.contains('hidden') &&
+            preview.cor.classList.contains('hidden')
+        cartazDadosBasicos.classList.toggle('hidden', nenhumDadoBasico)
 
         if (state.recompensa) {
             cartazFrase.classList.add('hidden')
@@ -583,13 +612,13 @@ async function baixarPDF() {
     restaurarCartaz({ imgCartaz, srcOriginal, alturaOriginal })
     restaurarZoomAposCaptura()
     restaurarPreviaAposCaptura()
-    
-    const imgData = canvas.toDataURL('image/png')
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.9)
     const { jsPDF } = window.jspdf
-    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' })
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4', compress: true })
     const larguraMM = pdf.internal.pageSize.getWidth()
     const alturaMM = pdf.internal.pageSize.getHeight()
-    pdf.addImage(imgData, 'PNG', 0, 0, larguraMM, alturaMM)
+    pdf.addImage(imgData, 'JPEG', 0, 0, larguraMM, alturaMM, undefined, 'MEDIUM')
     pdf.save(`cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.pdf`)
 }
 
