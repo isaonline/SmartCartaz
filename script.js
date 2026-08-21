@@ -597,10 +597,16 @@ async function baixarPNG() {
     restaurarZoomAposCaptura()
     restaurarPreviaAposCaptura()
     
-    const link = document.createElement('a')
-    link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
-    link.href = canvas.toDataURL('image/png')
-    link.click()
+    canvas.toBlob((blob) => {
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.download = `cartaz-${state.nome.replace(/\s+/g, '-').toLowerCase()}.png`
+        link.href = url
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+    }, 'image/png')
 }
 
 async function baixarPDF() {
